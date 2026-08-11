@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>半導體晶圓廠必備英文單字全攻略 | 線上測驗系統</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            fab: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#06b6d4',
+              600: '#0891b2',
+              800: '#155e75',
+              900: '#0f172a',
+              card: '#1e293b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      background-color: #0b0f19;
+      color: #f3f4f6;
+    }
+    .glass-panel {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .neon-border-cyan {
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+    }
+    .neon-border-indigo {
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.25);
+    }
+    /* Flip Card Animation */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+  <div id="app" class="flex-grow flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800 px-4 lg:px-8 py-3">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-3 cursor-pointer" @click="activeTab = 'A'">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-black font-black text-xl shadow-lg shadow-cyan-500/20">
+            <i class="fa-solid to-microchip text-slate-900"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent leading-tight">
+              半導體英文必備 180+ 單字庫
+            </h1>
+            <p class="text-xs text-slate-400">Fab Vocabulary Master for Engineers & Technicians</p>
+          </div>
+        </div>
+
+        <!-- Mode Navigation Tabs -->
+        <div class="flex items-center bg-slate-900/80 p-1.5 rounded-xl border border-slate-800">
+          <button 
+            @click="activeTab = 'A'" 
+            :class="activeTab === 'A' ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md' : 'text-slate-400 hover:text-white'"
+            class="px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-yellow-400"></i>
+            <span>A｜極速反射版</span>
+          </button>
+          
+          <button 
+            @click="activeTab = 'B'" 
+            :class="activeTab === 'B' ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold shadow-md' : 'text-slate-400 hover:text-white'"
+            class="px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-sky-400"></i>
+            <span>B｜記憶畫面版</span>
+          </button>
+          
+          <button 
+            @click="activeTab = 'C'" 
+            :class="activeTab === 'C' ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold shadow-md' : 'text-slate-400 hover:text-white'"
+            class="px-4 py-2 rounded-lg text-sm transition-all duration-200 flex items-center gap-2">
+            <i class="fa-solid fa-pen-ruler text-emerald-400"></i>
+            <span>C｜隨堂測驗版</span>
+          </button>
+        </div>
+
+        <!-- Stats & Controls -->
+        <div class="flex items-center gap-3">
+          <button 
+            @click="toggleStarredOnly" 
+            :class="showStarredOnly ? 'bg-amber-500/20 text-amber-400 border-amber-500/50' : 'bg-slate-800 text-slate-400 border-slate-700'"
+            class="px-3 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 transition">
+            <i class="fa-solid fa-star text-amber-400"></i>
+            <span>收藏 ({{ starredIds.length }})</span>
+          </button>
+          
+          <div class="text-xs text-slate-400 hidden sm:block bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+            收錄 <span class="text-cyan-400 font-semibold">{{ wordList.length }}</span> 個晶圓廠詞彙
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Global Search and Category Bar -->
+    <section class="bg-slate-900/60 border-b border-slate-800/80 px-4 lg:px-8 py-3">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-3 items-center justify-between">
+        <!-- Search Input -->
+        <div class="relative w-full md:w-80">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+          <input 
+            type="text" 
+            v-model="searchQuery" 
+            placeholder="搜尋英文、中文、注釋..." 
+            class="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-8 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500 transition">
+          <button v-if="searchQuery" @click="searchQuery = ''" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Category Selector Horizontal Pills -->
+        <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+          <button 
+            @click="selectedCategory = 'ALL'" 
+            :class="selectedCategory === 'ALL' ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-semibold' : 'bg-slate-800/60 text-slate-400 hover:bg-slate-800 border-slate-800'"
+            class="px-3 py-1.5 rounded-lg border text-xs whitespace-nowrap transition">
+            全部類別
+          </button>
+          <button 
+            v-for="cat in categories" 
+            :key="cat"
+            @click="selectedCategory = cat"
+            :class="selectedCategory === cat ? 'bg-cyan-500/20 text-cyan-300 border-cyan-500/50 font-semibold' : 'bg-slate-800/60 text-slate-400 hover:bg-slate-800 border-slate-800'"
+            class="px-3 py-1.5 rounded-lg border text-xs whitespace-nowrap transition">
+            {{ cat }}
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Dynamic Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 lg:p-8 flex flex-col">
+      
+      <!-- ================================================================= -->
+      <!-- VERSION A: 極速反射版 (Speed Reflex Mode)                          -->
+      <!-- ================================================================= -->
+      <div v-if="activeTab === 'A'" class="space-y-6 flex-grow flex flex-col">
+        <!-- Mode Intro & Controls Banner -->
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 glass-panel p-4 rounded-2xl border-cyan-500/20">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-400/20 text-yellow-300 border border-yellow-400/30">高強度肌肉記憶</span>
+              <h2 class="text-lg font-bold text-white">版本 A｜極速反射版</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">極簡表格與高壓快刷卡，專為建立無意識英語直覺反應設計。</p>
+          </div>
+
+          <div class="flex items-center gap-2 w-full md:w-auto">
+            <button 
+              @click="speedSubMode = 'reflexCard'" 
+              :class="speedSubMode === 'reflexCard' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+              class="flex-1 md:flex-initial px-4 py-2 rounded-lg text-xs transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-person-running"></i> 秒速快刷閃卡
+            </button>
+            <button 
+              @click="speedSubMode = 'rapidTest'" 
+              :class="speedSubMode === 'rapidTest' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+              class="flex-1 md:flex-initial px-4 py-2 rounded-lg text-xs transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-stopwatch text-red-400"></i> 極速限時考場
+            </button>
+            <button 
+              @click="speedSubMode = 'table'" 
+              :class="speedSubMode === 'table' ? 'bg-cyan-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+              class="flex-1 md:flex-initial px-4 py-2 rounded-lg text-xs transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-table-cells"></i> 高密總表
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-Mode A1: 秒速快刷閃卡 (Flashcards) -->
+        <div v-if="speedSubMode === 'reflexCard'" class="flex-grow flex flex-col items-center justify-center py-6">
+          <div v-if="filteredWords.length === 0" class="text-center py-12 text-slate-500">
+            <i class="fa-solid fa-folder-open text-4xl mb-3 opacity-50"></i>
+            <p>沒有找到符合條件的單字，請調整搜尋或分類篩選。</p>
+          </div>
+
+          <div v-else class="w-full max-w-xl flex flex-col items-center">
+            <!-- Flashcard Container -->
+            <div 
+              @click="toggleCardFlip" 
+              class="w-full h-80 perspective-1000 cursor-pointer group">
+              <div 
+                :class="{'rotate-y-180': isCardFlipped}" 
+                class="w-full h-full relative transform-style-3d transition-transform duration-300 ease-out">
+                
+                <!-- Front Side (English) -->
+                <div class="absolute inset-0 w-full h-full glass-panel rounded-3xl p-8 flex flex-col justify-between items-center text-center backface-hidden border-cyan-500/30 neon-border-cyan bg-slate-900/90">
+                  <div class="w-full flex justify-between items-center text-xs text-slate-400">
+                    <span class="px-2.5 py-1 rounded-md bg-slate-800 text-cyan-400 border border-slate-700">{{ currentCard.cat }}</span>
+                    <button @click.stop="toggleStar(currentCard.id)" class="text-lg hover:scale-125 transition">
+                      <i :class="isStarred(currentCard.id) ? 'fa-solid text-amber-400' : 'fa-regular text-slate-500'" class="fa-star"></i>
+                    </button>
+                  </div>
+
+                  <div class="my-auto space-y-2">
+                    <span class="text-xs uppercase tracking-widest text-slate-500 font-semibold">{{ currentCard.pos }}</span>
+                    <h3 class="text-4xl md:text-5xl font-black text-white tracking-wide leading-tight">
+                      {{ currentCard.en }}
+                    </h3>
+                  </div>
+
+                  <div class="w-full flex items-center justify-between text-xs text-slate-500">
+                    <button @click.stop="speak(currentCard.en)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-medium transition flex items-center gap-1.5">
+                      <i class="fa-solid fa-volume-high"></i> 發音
+                    </button>
+                    <span>點擊翻面解鎖中文 <i class="fa-solid fa-rotate"></i></span>
+                    <span class="font-mono text-cyan-400">{{ currentReflexIndex + 1 }} / {{ filteredWords.length }}</span>
+                  </div>
+                </div>
+
+                <!-- Back Side (Chinese & Detail) -->
+                <div class="absolute inset-0 w-full h-full glass-panel rounded-3xl p-8 flex flex-col justify-between items-center text-center backface-hidden rotate-y-180 border-indigo-500/30 neon-border-indigo bg-slate-900/95">
+                  <div class="w-full flex justify-between items-center text-xs text-slate-400">
+                    <span class="px-2.5 py-1 rounded-md bg-indigo-950 text-indigo-300 border border-indigo-800">{{ currentCard.pos }}</span>
+                    <button @click.stop="toggleStar(currentCard.id)" class="text-lg hover:scale-125 transition">
+                      <i :class="isStarred(currentCard.id) ? 'fa-solid text-amber-400' : 'fa-regular text-slate-500'" class="fa-star"></i>
+                    </button>
+                  </div>
+
+                  <div class="my-auto space-y-2">
+                    <h3 class="text-3xl md:text-4xl font-extrabold text-cyan-300">
+                      {{ currentCard.zh }}
+                    </h3>
+                    <p class="text-sm text-slate-300 max-w-sm mt-2 bg-slate-800/60 px-4 py-2 rounded-xl border border-slate-700/50">
+                      <i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> {{ currentCard.tip || '晶圓廠實務高頻用語' }}
+                    </p>
+                  </div>
+
+                  <div class="w-full flex items-center justify-between text-xs text-slate-500">
+                    <button @click.stop="speak(currentCard.en)" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-indigo-500 hover:text-white text-indigo-400 font-medium transition flex items-center gap-1.5">
+                      <i class="fa-solid fa-volume-high"></i> 重複發音
+                    </button>
+                    <span class="font-mono text-indigo-400">{{ currentReflexIndex + 1 }} / {{ filteredWords.length }}</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Auto Play & Navigation Controls -->
+            <div class="mt-6 w-full flex flex-wrap items-center justify-between gap-3">
+              <button @click="prevReflexCard" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold transition flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> 上一個 (←)
+              </button>
+
+              <!-- Auto Loop Play Toggle -->
+              <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl">
+                <button 
+                  @click="toggleAutoPlay" 
+                  :class="isAutoPlaying ? 'bg-red-500 text-white font-bold' : 'bg-cyan-500 text-slate-950 font-bold'"
+                  class="px-3 py-1 rounded-lg text-xs transition flex items-center gap-1.5">
+                  <i :class="isAutoPlaying ? 'fa-solid fa-pause' : 'fa-solid fa-play'"></i>
+                  <span>{{ isAutoPlaying ? '停止輪播' : '自動快刷' }}</span>
+                </button>
+                <select v-model="autoPlaySpeed" class="bg-slate-800 text-slate-300 text-xs rounded-md px-2 py-1 outline-none">
+                  <option :value="1500">1.5秒/詞</option>
+                  <option :value="2500">2.5秒/詞</option>
+                  <option :value="4000">4.0秒/詞</option>
+                </select>
+              </div>
+
+              <button @click="nextReflexCard" class="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold transition flex items-center gap-2 shadow-lg shadow-cyan-500/20">
+                下一個 (→) <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-Mode A2: 極速限時反應考場 (Rapid Countdown Quiz) -->
+        <div v-if="speedSubMode === 'rapidTest'" class="flex-grow flex flex-col items-center justify-center py-6">
+          <div v-if="!rapidQuizStarted" class="text-center glass-panel p-8 rounded-3xl max-w-md w-full space-y-5 border-cyan-500/20">
+            <div class="w-16 h-16 bg-gradient-to-tr from-yellow-500 to-red-500 rounded-2xl mx-auto flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-red-500/30">
+              <i class="fa-solid fa-bolt"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold text-white">0.8秒~2秒極速直覺挑戰</h3>
+              <p class="text-xs text-slate-400 mt-1">倒數時間內憑直覺點擊正確中文釋義，鍛鍊現場聽命令與看畫面時的反射神經！</p>
+            </div>
+            
+            <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-left text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">題目數量:</span>
+                <select v-model="rapidCount" class="bg-slate-800 text-cyan-300 rounded px-2 py-1 outline-none border border-slate-700">
+                  <option :value="15">15 題 (快速刷卡)</option>
+                  <option :value="30">30 題 (中度挑戰)</option>
+                  <option :value="50">50 題 (高強度)</option>
+                  <option :value="wordList.length">🔥 考全部 ({{ wordList.length }} 題全考)</option>
+                </select>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">單題時限:</span>
+                <select v-model="rapidTimeLimit" class="bg-slate-800 text-cyan-300 rounded px-2 py-1 outline-none border border-slate-700">
+                  <option :value="2000">2.0 秒 (初級)</option>
+                  <option :value="1500">1.5 秒 (進階)</option>
+                  <option :value="1000">1.0 秒 (神手)</option>
+                </select>
+              </div>
+            </div>
+
+            <button @click="startRapidQuiz" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 font-bold text-slate-950 hover:brightness-110 transition shadow-lg shadow-cyan-500/20">
+              開始極速挑戰 <i class="fa-solid fa-fire text-amber-300 ml-1"></i>
+            </button>
+          </div>
+
+          <!-- Active Rapid Quiz Interface -->
+          <div v-else-if="!rapidQuizFinished" class="w-full max-w-lg glass-panel p-6 rounded-3xl border-cyan-500/30 relative overflow-hidden">
+            <!-- Progress Bar & Timer Countdown Line -->
+            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mb-6">
+              <div class="h-full bg-gradient-to-r from-cyan-400 to-red-500 transition-all duration-75" :style="{ width: rapidTimerPercent + '%' }"></div>
+            </div>
+
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
+              <span>第 <strong class="text-cyan-400 font-mono text-sm">{{ rapidCurrentIndex + 1 }}</strong> / {{ rapidQuestions.length }} 題</span>
+              <span class="text-amber-400 font-bold"><i class="fa-solid fa-trophy"></i> 得分: {{ rapidScore }}</span>
+            </div>
+
+            <!-- Word Question -->
+            <div class="text-center py-6">
+              <span class="text-xs uppercase tracking-widest text-slate-500">{{ currentRapidQ.pos }}</span>
+              <h3 class="text-4xl font-black text-white mt-1">{{ currentRapidQ.en }}</h3>
+            </div>
+
+            <!-- 4 Multiple Choice Options -->
+            <div class="grid grid-cols-1 gap-2.5 mt-4">
+              <button 
+                v-for="(opt, idx) in currentRapidQ.options" 
+                :key="idx"
+                @click="answerRapidQuestion(opt)"
+                class="w-full py-3 px-4 rounded-xl bg-slate-800/80 hover:bg-cyan-500 hover:text-slate-950 font-semibold text-sm text-left border border-slate-700/80 transition flex items-center justify-between group">
+                <span><strong class="text-slate-500 group-hover:text-slate-900 mr-2">{{ ['A','B','C','D'][idx] }}.</strong> {{ opt.zh }}</span>
+                <i class="fa-solid fa-chevron-right text-xs opacity-0 group-hover:opacity-100 transition"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Rapid Quiz Result -->
+          <div v-else class="text-center glass-panel p-8 rounded-3xl max-w-md w-full space-y-5 border-cyan-500/30">
+            <div class="w-20 h-20 bg-gradient-to-tr from-cyan-500 to-emerald-400 rounded-full mx-auto flex items-center justify-center text-slate-950 font-black text-3xl shadow-xl shadow-cyan-500/30">
+              {{ Math.round((rapidScore / rapidQuestions.length) * 100) }}%
+            </div>
+            <div>
+              <h3 class="text-2xl font-black text-white">反射測試完成！</h3>
+              <p class="text-xs text-slate-400 mt-1">答對 {{ rapidScore }} / {{ rapidQuestions.length }} 題</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-left space-y-2">
+              <p class="text-cyan-300 font-bold">晶圓廠神經反射評價：</p>
+              <p class="text-slate-300" v-if="rapidScore >= 13">⚡ 驚人神速！機台出現 Alarm 能在 0.5 秒內做出精確處置！</p>
+              <p class="text-slate-300" v-else-if="rapidScore >= 9">👍 相當紮實！大部分晶圓廠英文指令都能直覺理解。</p>
+              <p class="text-slate-300" v-else>⚠️ 反射神經稍有遲鈍，建議使用閃卡多刷幾輪建立直覺！</p>
+            </div>
+
+            <button @click="startRapidQuiz" class="w-full py-3 rounded-xl bg-cyan-500 font-bold text-slate-950 hover:bg-cyan-400 transition">
+              再挑戰一次 <i class="fa-solid fa-rotate-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-Mode A3: 高密度刷詞總表 (High-Density Minimalist Grid) -->
+        <div v-if="speedSubMode === 'table'" class="flex-grow flex flex-col">
+          <div class="glass-panel rounded-2xl border-slate-800 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-sm">
+                <thead>
+                  <tr class="bg-slate-900/90 text-slate-400 border-b border-slate-800 text-xs uppercase tracking-wider">
+                    <th class="p-3 w-12 text-center">收藏</th>
+                    <th class="p-3">英文單字 / 詞組</th>
+                    <th class="p-3 w-20">詞性</th>
+                    <th class="p-3">中文釋義</th>
+                    <th class="p-3">分類</th>
+                    <th class="p-3 w-20 text-center">發音</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-800/60">
+                  <tr 
+                    v-for="word in filteredWords" 
+                    :key="word.id"
+                    class="hover:bg-slate-800/50 transition duration-150">
+                    <td class="p-3 text-center">
+                      <button @click="toggleStar(word.id)" class="text-slate-500 hover:text-amber-400">
+                        <i :class="isStarred(word.id) ? 'fa-solid text-amber-400' : 'fa-regular'" class="fa-star"></i>
+                      </button>
+                    </td>
+                    <td class="p-3 font-bold text-white font-mono">
+                      {{ word.en }}
+                    </td>
+                    <td class="p-3 text-slate-400 text-xs font-mono">
+                      {{ word.pos }}
+                    </td>
+                    <td class="p-3 text-cyan-300 font-medium">
+                      {{ word.zh }}
+                    </td>
+                    <td class="p-3">
+                      <span class="px-2 py-0.5 rounded text-xs bg-slate-800 text-slate-400 border border-slate-700/50">
+                        {{ word.cat }}
+                      </span>
+                    </td>
+                    <td class="p-3 text-center">
+                      <button @click="speak(word.en)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-300 transition flex items-center justify-center mx-auto text-xs">
+                        <i class="fa-solid fa-volume-high"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- VERSION B: 記憶畫面版 (Context & Scene Memory Mode)                  -->
+      <!-- ================================================================= -->
+      <div v-if="activeTab === 'B'" class="space-y-6">
+        <!-- Banner Intro -->
+        <div class="glass-panel p-4 rounded-2xl border-indigo-500/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">場景分類 & 實務情境句</span>
+              <h2 class="text-lg font-bold text-white">版本 B｜記憶畫面版</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">依照半導體晶圓廠實際八大工作場景歸類，透過情境聯想與常用語句深化大腦圖像記憶。</p>
+          </div>
+        </div>
+
+        <!-- Category Scene Grid Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div 
+            v-for="(catWords, catName) in wordsGroupedByCategory" 
+            :key="catName"
+            class="glass-panel p-5 rounded-2xl border-slate-800 hover:border-indigo-500/40 transition duration-300 flex flex-col justify-between space-y-4">
+            
+            <!-- Category Header -->
+            <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-400 flex items-center justify-center font-bold">
+                  <i :class="getCategoryIcon(catName)"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-base text-white">{{ catName }}</h3>
+                  <p class="text-xs text-slate-400">{{ getCategoryFabScene(catName) }}</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono px-2 py-1 rounded bg-slate-800 text-indigo-300 font-semibold">
+                {{ catWords.length }} 個單字
+              </span>
+            </div>
+
+            <!-- Words List in this Scene -->
+            <div class="grid grid-cols-1 gap-2.5">
+              <div 
+                v-for="word in catWords.slice(0, 6)" 
+                :key="word.id"
+                class="p-3 rounded-xl bg-slate-900/80 border border-slate-800/80 hover:bg-slate-800/60 transition group flex flex-col gap-1">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <button @click="speak(word.en)" class="text-slate-500 hover:text-cyan-400 text-xs">
+                      <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <span class="font-bold text-slate-100 font-mono text-sm group-hover:text-cyan-300 transition">{{ word.en }}</span>
+                    <span class="text-xs text-slate-500 font-mono">({{ word.pos }})</span>
+                  </div>
+                  <span class="text-xs font-semibold text-emerald-400">{{ word.zh }}</span>
+                </div>
+                <!-- Fab Sentence / Tip -->
+                <p v-if="word.sentence" class="text-xs text-slate-400 pl-5 border-l-2 border-indigo-500/40 mt-1 italic">
+                  "{{ word.sentence }}"
+                </p>
+              </div>
+            </div>
+
+            <div v-if="catWords.length > 6" class="text-center pt-1">
+              <button @click="selectedCategory = catName; activeTab = 'A'" class="text-xs text-cyan-400 hover:underline">
+                檢視該分類全部 {{ catWords.length }} 個單字 <i class="fa-solid fa-arrow-right text-2xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- VERSION C: 隨堂測驗版 (Self-Assessment Test Mode)                 -->
+      <!-- ================================================================= -->
+      <div v-if="activeTab === 'C'" class="space-y-6 flex-grow flex flex-col">
+        <!-- Banner Intro -->
+        <div class="glass-panel p-4 rounded-2xl border-emerald-500/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">多元綜合測驗系統</span>
+              <h2 class="text-lg font-bold text-white">版本 C｜隨堂自我測驗版</h2>
+            </div>
+            <p class="text-xs text-slate-400 mt-1">隱藏遮罩自我自我檢測、標準多選模擬考、拼寫寫作測驗與錯題庫複習。</p>
+          </div>
+
+          <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
+            <button 
+              @click="testSubMode = 'maskPractice'" 
+              :class="testSubMode === 'maskPractice' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+              class="px-3.5 py-2 rounded-lg text-xs transition flex items-center gap-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-eye-slash"></i> 遮蔽自測卡
+            </button>
+            <button 
+              @click="testSubMode = 'exam'" 
+              :class="testSubMode === 'exam' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+              class="px-3.5 py-2 rounded-lg text-xs transition flex items-center gap-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-file-pen"></i> 多選模擬考
+            </button>
+            <button 
+              @click="testSubMode = 'spelling'" 
+              :class="testSubMode === 'spelling' ? 'bg-emerald-500 text-slate-950 font-bold' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'"
+              class="px-3.5 py-2 rounded-lg text-xs transition flex items-center gap-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-keyboard"></i> 拼寫實戰
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-Mode C1: 遮蔽遮罩測驗 (Curtain Mask Self Test) -->
+        <div v-if="testSubMode === 'maskPractice'" class="space-y-4">
+          <!-- Mask Controls -->
+          <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900/80 p-3 rounded-xl border border-slate-800 text-xs">
+            <div class="flex items-center gap-4">
+              <span class="text-slate-400 font-semibold">遮蔽選擇：</span>
+              <label class="flex items-center gap-1.5 text-slate-300 cursor-pointer">
+                <input type="radio" v-model="maskType" value="zh" class="accent-emerald-500"> 遮蔽中文 (考英文記憶)
+              </label>
+              <label class="flex items-center gap-1.5 text-slate-300 cursor-pointer">
+                <input type="radio" v-model="maskType" value="en" class="accent-emerald-500"> 遮蔽英文 (考英譯拼寫)
+              </label>
+            </div>
+            
+            <button @click="revealAllMasks = !revealAllMasks" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-emerald-400 transition">
+              <i class="fa-solid" :class="revealAllMasks ? 'fa-eye-slash' : 'fa-eye'"></i>
+              {{ revealAllMasks ? '隱藏全部' : '顯示全部答案' }}
+            </button>
+          </div>
+
+          <!-- Grid of Interactive Mask Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div 
+              v-for="word in filteredWords" 
+              :key="word.id"
+              class="glass-panel p-4 rounded-xl border-slate-800 flex items-center justify-between gap-3">
+              
+              <div class="flex-grow space-y-1">
+                <!-- English Part -->
+                <div class="flex items-center gap-2">
+                  <button @click="speak(word.en)" class="text-slate-500 hover:text-cyan-400 text-xs">
+                    <i class="fa-solid fa-volume-high"></i>
+                  </button>
+                  <span v-if="maskType !== 'en' || revealAllMasks || revealedCardIds.includes(word.id)" class="font-mono font-bold text-white text-base">
+                    {{ word.en }}
+                  </span>
+                  <button 
+                    v-else 
+                    @click="toggleCardReveal(word.id)" 
+                    class="px-3 py-1 rounded bg-slate-800 border border-slate-700 text-xs text-emerald-400 hover:bg-slate-700">
+                    🙈 點擊顯示英文
+                  </button>
+                  <span class="text-2xs text-slate-500 font-mono">({{ word.pos }})</span>
+                </div>
+
+                <!-- Chinese Part -->
+                <div>
+                  <span v-if="maskType !== 'zh' || revealAllMasks || revealedCardIds.includes(word.id)" class="text-sm font-semibold text-emerald-300">
+                    {{ word.zh }}
+                  </span>
+                  <button 
+                    v-else 
+                    @click="toggleCardReveal(word.id)" 
+                    class="px-3 py-1 rounded bg-slate-800 border border-slate-700 text-xs text-cyan-400 hover:bg-slate-700">
+                    🙈 點擊揭曉中文
+                  </button>
+                </div>
+              </div>
+
+              <button @click="toggleStar(word.id)" class="text-slate-500 hover:text-amber-400 text-lg">
+                <i :class="isStarred(word.id) ? 'fa-solid text-amber-400' : 'fa-regular'" class="fa-star"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sub-Mode C2: 多選模擬測驗 (Multiple Choice Exam) -->
+        <div v-if="testSubMode === 'exam'" class="flex-grow flex flex-col items-center justify-center py-4">
+          <!-- Exam Setup -->
+          <div v-if="!examStarted" class="glass-panel p-8 rounded-3xl max-w-md w-full text-center space-y-5 border-emerald-500/20">
+            <div class="w-16 h-16 bg-gradient-to-tr from-emerald-500 to-teal-600 rounded-2xl mx-auto flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-emerald-500/20">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-extrabold text-white">晶圓廠英文隨堂測驗</h3>
+              <p class="text-xs text-slate-400 mt-1">模擬真實 Fab 面試與 SOP 認證題庫，全面自我檢測學習效益。</p>
+            </div>
+
+            <div class="space-y-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-left text-xs">
+              <div class="flex justify-between items-center">
+                <span class="text-slate-400">測驗題數:</span>
+                <select v-model="examCount" class="bg-slate-800 text-emerald-300 rounded px-2 py-1 outline-none border border-slate-700">
+                  <option :value="10">10 題 (快速檢測)</option>
+                  <option :value="20">20 題 (標準模考)</option>
+                  <option :value="50">50 題 (高強度挑戰)</option>
+                  <option :value="100">100 題 (半百挑戰)</option>
+                  <option :value="wordList.length">🎓 考全部 ({{ wordList.length }} 題全考)</option>
+                </select>
+              </div>
+            </div>
+
+            <button @click="startExam" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-slate-950 hover:brightness-110 transition shadow-lg shadow-emerald-500/20">
+              開始隨堂測驗 <i class="fa-solid fa-play ml-1"></i>
+            </button>
+          </div>
+
+          <!-- Active Exam Window -->
+          <div v-else-if="!examFinished" class="w-full max-w-2xl glass-panel p-6 rounded-3xl border-emerald-500/30 space-y-6">
+            <!-- Header Progress -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div>
+                <span class="text-xs text-slate-400">Question</span>
+                <p class="text-lg font-bold text-white font-mono">{{ examIndex + 1 }} <span class="text-xs text-slate-500">/ {{ examQuestions.length }}</span></p>
+              </div>
+              <div class="w-48 h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-500 transition-all duration-300" :style="{ width: ((examIndex + 1)/examQuestions.length * 100) + '%' }"></div>
+              </div>
+            </div>
+
+            <!-- Question Body -->
+            <div class="space-y-3">
+              <span class="px-2.5 py-1 rounded bg-slate-800 text-xs font-mono text-cyan-400 border border-slate-700">
+                {{ currentExamQ.cat }}
+              </span>
+              <h3 class="text-2xl font-black text-white">
+                請問 <span class="text-cyan-300 font-mono underline decoration-cyan-500/50 underline-offset-4">{{ currentExamQ.en }}</span> 的中文意思是什麼？
+              </h3>
+            </div>
+
+            <!-- Options -->
+            <div class="grid grid-cols-1 gap-3">
+              <button 
+                v-for="(opt, idx) in currentExamQ.options" 
+                :key="idx"
+                @click="selectExamAnswer(opt)"
+                :disabled="examSelectedAnswer !== null"
+                :class="getExamOptionStyle(opt)"
+                class="w-full p-4 rounded-xl text-left font-medium text-sm border transition flex items-center justify-between">
+                <span><strong class="mr-2 font-mono text-slate-400">{{ ['A','B','C','D'][idx] }}.</strong> {{ opt.zh }}</span>
+                <i v-if="examSelectedAnswer !== null && opt.id === currentExamQ.id" class="fa-solid fa-circle-check text-emerald-400"></i>
+              </button>
+            </div>
+
+            <!-- Explanation & Next Button -->
+            <div v-if="examSelectedAnswer !== null" class="space-y-4 pt-2">
+              <div :class="examSelectedAnswer.id === currentExamQ.id ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-red-500/10 border-red-500/30 text-red-300'" class="p-4 rounded-xl border text-xs">
+                <p class="font-bold mb-1">{{ examSelectedAnswer.id === currentExamQ.id ? '✨ 答對了！' : '❌ 答錯了！正確答案是：' + currentExamQ.zh }}</p>
+                <p class="text-slate-300" v-if="currentExamQ.sentence">實務例句: {{ currentExamQ.sentence }}</p>
+              </div>
+
+              <button @click="nextExamQuestion" class="w-full py-3 rounded-xl bg-emerald-500 font-bold text-slate-950 hover:bg-emerald-400 transition">
+                {{ examIndex + 1 === examQuestions.length ? '查看總成績' : '下一題' }} <i class="fa-solid fa-arrow-right ml-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Exam Score Summary -->
+          <div v-else class="glass-panel p-8 rounded-3xl max-w-lg w-full text-center space-y-6 border-emerald-500/30">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-400 mx-auto flex items-center justify-center text-slate-950 font-black text-4xl shadow-xl shadow-emerald-500/20">
+              {{ Math.round((examScore / examQuestions.length) * 100) }}
+            </div>
+
+            <div>
+              <h3 class="text-2xl font-black text-white">隨堂測驗評分報告</h3>
+              <p class="text-xs text-slate-400 mt-1">答對 {{ examScore }} / 共 {{ examQuestions.length }} 題</p>
+            </div>
+
+            <!-- Score Grade -->
+            <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-left space-y-2">
+              <span class="text-emerald-400 font-bold">晶圓廠能力等級評語：</span>
+              <p v-if="examScore / examQuestions.length >= 0.9" class="text-slate-300">🌟 卓越！具備半導體資深工程師等級的專業英語溝通與 SOP 閱讀能力！</p>
+              <p v-else-if="examScore / examQuestions.length >= 0.7" class="text-slate-300">👍 優秀！已掌握多數日常機台與產線英文，再複習弱點即可上線。</p>
+              <p v-else class="text-slate-300">📖 仍需加強！建議重溫 [版本 A 快刷閃卡] 與 [版本 B 情境記憶]！</p>
+            </div>
+
+            <button @click="startExam" class="w-full py-3 rounded-xl bg-emerald-500 font-bold text-slate-950 hover:bg-emerald-400 transition">
+              重新測驗 <i class="fa-solid fa-rotate-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sub-Mode C3: 拼寫實戰 (Spelling Mastery Test) -->
+        <div v-if="testSubMode === 'spelling'" class="flex-grow flex flex-col items-center justify-center py-4">
+          <div class="glass-panel p-8 rounded-3xl max-w-lg w-full space-y-6 border-emerald-500/20">
+            <div class="flex justify-between items-center text-xs text-slate-400">
+              <span>拼寫關卡 {{ spellingIndex + 1 }} / {{ filteredWords.length }}</span>
+              <span class="text-emerald-400 font-mono font-bold"><i class="fa-solid fa-check"></i> 累積正確: {{ spellingScore }}</span>
+            </div>
+
+            <div class="text-center space-y-2">
+              <span class="px-2.5 py-1 rounded bg-slate-800 text-xs text-slate-400">{{ currentSpellingWord.cat }}</span>
+              <h3 class="text-3xl font-extrabold text-cyan-300 mt-2">{{ currentSpellingWord.zh }}</h3>
+              <p class="text-xs text-slate-500">詞性：{{ currentSpellingWord.pos }}</p>
+            </div>
+
+            <!-- User Spelling Input -->
+            <form @submit.prevent="checkSpelling" class="space-y-4">
+              <div>
+                <input 
+                  type="text" 
+                  v-model="spellingInput" 
+                  placeholder="請輸入正確的英文拼寫..." 
+                  class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-center text-lg font-mono text-white focus:outline-none focus:border-emerald-500 transition">
+              </div>
+
+              <div v-if="spellingFeedback !== null" :class="spellingFeedback.isCorrect ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30' : 'text-red-400 bg-red-500/10 border-red-500/30'" class="p-3 rounded-xl border text-xs text-center font-semibold">
+                {{ spellingFeedback.msg }}
+              </div>
+
+              <div class="flex gap-2">
+                <button type="button" @click="showSpellingHint = !showSpellingHint" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
+                  <i class="fa-solid fa-lightbulb text-amber-400"></i> {{ showSpellingHint ? '隱藏提示' : '字數提示' }}
+                </button>
+                <button type="submit" class="flex-grow py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 font-bold text-slate-950 text-sm transition">
+                  檢查答案
+                </button>
+              </div>
+            </form>
+
+            <div v-if="showSpellingHint" class="text-center text-xs text-slate-400 bg-slate-900/80 p-3 rounded-xl border border-slate-800 font-mono">
+              提示: {{ currentSpellingWord.en.length }} 個字母, 首字母為 <strong class="text-cyan-400 text-sm">{{ currentSpellingWord.en[0] }}</strong>
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+              <button @click="prevSpelling" class="text-xs text-slate-400 hover:text-white">
+                <i class="fa-solid fa-chevron-left"></i> 上一題
+              </button>
+              <button @click="nextSpelling" class="text-xs text-cyan-400 hover:text-cyan-300 font-bold">
+                跳過/下一題 <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-slate-800 py-4 px-4 text-center text-xs text-slate-500 mt-auto">
+      <p>半導體晶圓廠核心英文單字庫 App &copy; 2026 | 適用於半導體設備、製程、整合工程師與技術員技能提升</p>
+    </footer>
+  </div>
+
+  <script>
+    const { createApp, ref, computed, onMounted, watch } = Vue;
+
+    createApp({
+      setup() {
+        // Main Navigation State
+        const activeTab = ref('A'); // 'A', 'B', 'C'
+        const speedSubMode = ref('reflexCard'); // 'reflexCard', 'rapidTest', 'table'
+        const testSubMode = ref('maskPractice'); // 'maskPractice', 'exam', 'spelling'
+
+        // Search & Filters
+        const searchQuery = ref('');
+        const selectedCategory = ref('ALL');
+        const showStarredOnly = ref(false);
+        const starredIds = ref(JSON.parse(localStorage.getItem('fab_starred_ids') || '[]'));
+
+        // Complete 215+ Semiconductor Dataset
+        const wordList = ref([
+          // 1. 機台設備與操作
+          { id: 1, en: "equipment", pos: "n.", zh: "設備", cat: "機台設備與操作", sentence: "All processing equipment in the cleanroom must undergo daily maintenance checks.", tip: "晶圓廠內部對生產機台的標準統稱" },
+          { id: 2, en: "machine", pos: "n.", zh: "機器", cat: "機台設備與操作", sentence: "The machine was stopped automatically due to a pressure error.", tip: "泛指各類機器設備" },
+          { id: 3, en: "check", pos: "v.", zh: "檢查", cat: "機台設備與操作", sentence: "Technicians check the recipe parameters before running the wafer lot.", tip: "日常機台與卡單開工前的重要動作" },
+          { id: 4, en: "start", pos: "n.", zh: "啟動", cat: "機台設備與操作", sentence: "Press the green button to start the process.", tip: "啟動 run 批" },
+          { id: 5, en: "run", pos: "v.", zh: "運轉、跑", cat: "機台設備與操作", sentence: "This tool is currently running a high-priority customer lot.", tip: "Run lot 指運轉生產批貨" },
+          { id: 6, en: "hold", pos: "v.", zh: "暫停", cat: "機台設備與操作", sentence: "The lot was put on hold because of an engineering defect.", tip: "扣留/扣卡(Hold lot)，暫停生產" },
+          { id: 7, en: "continue", pos: "v.", zh: "繼續", cat: "機台設備與操作", sentence: "After verifying the recipe, you can continue the run.", tip: "恢復運轉繼續執行" },
+          { id: 8, en: "exit", pos: "n.", zh: "退出", cat: "機台設備與操作", sentence: "Emergency exits are located at both ends of the cleanroom aisle.", tip: "離開或安全出口" },
+          { id: 9, en: "enter", pos: "v.", zh: "進入", cat: "機台設備與操作", sentence: "Enter your user ID to log into the MES computer system.", tip: "登入系統或進入區域" },
+          { id: 10, en: "operation", pos: "n.", zh: "操作", cat: "機台設備與操作", sentence: "Follow standard procedure during tool operation.", tip: "機台具體操作過程" },
+          { id: 11, en: "manual", pos: "a.", zh: "手動的", cat: "機台設備與操作", sentence: "Switch the station to manual mode for maintenance.", tip: "手動操作模式" },
+          { id: 12, en: "automatic", pos: "a.", zh: "自動的", cat: "機台設備與操作", sentence: "The automated material handling system moves cassettes automatically.", tip: "全自動化運轉" },
+          { id: 13, en: "switch", pos: "n.", zh: "開關", cat: "機台設備與操作", sentence: "Flip the main switch to turn off power.", tip: "硬體或系統開關" },
+          { id: 14, en: "control", pos: "n.", zh: "控制", cat: "機台設備與操作", sentence: "Statistical Process Control (SPC) is essential for high yield.", tip: "SPC 統計製程管制" },
+          { id: 15, en: "function", pos: "n.", zh: "功能", cat: "機台設備與操作", sentence: "Test every sensor function during PM routine.", tip: "機台模組功能" },
+          { id: 16, en: "handle", pos: "v.", zh: "處理", cat: "機台設備與操作", sentence: "Engineers must handle scrap wafers with specialized tools.", tip: "處置異常或物料" },
+          { id: 17, en: "press", pos: "v.", zh: "按下", cat: "機台設備與操作", sentence: "Press the EMO button only in real emergencies.", tip: "按壓按鈕" },
+          { id: 18, en: "push", pos: "v.", zh: "推進", cat: "機台設備與操作", sentence: "Push the cart carefully inside the bay.", tip: "推進手推車或推批" },
+          { id: 19, en: "monitor", pos: "n.", zh: "監視器、測機", cat: "機台設備與操作", sentence: "Check the process parameters on the monitor screen.", tip: "監視螢幕或測機" },
+          { id: 20, en: "stocker", pos: "n.", zh: "儲存櫃", cat: "機台設備與操作", sentence: "Wafers are safely stored inside the automated stocker.", tip: "自動化晶圓儲存庫" },
+          { id: 21, en: "lot", pos: "n.", zh: "批貨", cat: "機台設備與操作", sentence: "Each lot contains up to 25 silicon wafers.", tip: "晶圓生產單位 (一批)" },
+          { id: 22, en: "cassette", pos: "n.", zh: "晶片專用盒", cat: "機台設備與操作", sentence: "Load the cassette into the station loadport.", tip: "裝載晶片的卡匣" },
+          { id: 23, en: "pod", pos: "n.", zh: "晶片傳送盒", cat: "機台設備與操作", sentence: "FOUP pods protect wafers from particle contamination.", tip: "FOUP 密閉晶片傳送盒" },
+          { id: 24, en: "cart", pos: "n.", zh: "手推車", cat: "機台設備與操作", sentence: "Use a cleanroom cart to transport materials.", tip: "無塵室手推車" },
+          { id: 25, en: "load", pos: "v.", zh: "上貨、裝載", cat: "機台設備與操作", sentence: "Load the wafers onto the tool stage.", tip: "上料裝載" },
+          { id: 26, en: "loading", pos: "n.", zh: "負荷", cat: "機台設備與操作", sentence: "High machine loading can cause bottle-necks.", tip: "產線或機台負載率" },
+          { id: 27, en: "unload", pos: "v.", zh: "下貨、卸載", cat: "機台設備與操作", sentence: "Unload the wafers after the cycle completes.", tip: "下料卸載" },
+          { id: 28, en: "move", pos: "v./n.", zh: "移動；產出", cat: "機台設備與操作", sentence: "Daily move target must be achieved.", tip: "晶圓產出移動量 (Move)" },
+          { id: 29, en: "lift", pos: "v.", zh: "抬起、舉起", cat: "機台設備與操作", sentence: "Use proper posture when lifting heavy tool parts.", tip: "舉起或舉升機構" },
+          { id: 30, en: "shuttle", pos: "n.", zh: "接駁車", cat: "機台設備與操作", sentence: "The OHT shuttle runs above on overhead tracks.", tip: "空中自動接駁車 OHT" },
+          { id: 31, en: "route", pos: "n.", zh: "路線", cat: "機台設備與操作", sentence: "Check the lot processing route on the run-card.", tip: "晶圓流程路線" },
+          { id: 32, en: "location", pos: "n.", zh: "位置", cat: "機台設備與操作", sentence: "Confirm the stocker location code before retrieval.", tip: "存放位置" },
+          { id: 33, en: "position", pos: "n.", zh: "位置", cat: "機台設備與操作", sentence: "Align the wafer into exact center position.", tip: "精確定位" },
+          { id: 34, en: "bottom", pos: "n.", zh: "底部", cat: "機台設備與操作", sentence: "Clean particle buildup at the chamber bottom.", tip: "腔體底部" },
+          { id: 35, en: "top", pos: "n.", zh: "頂端", cat: "機台設備與操作", sentence: "The top gas showerhead requires inspection.", tip: "頂端或上方" },
+          { id: 36, en: "center", pos: "n.", zh: "中心", cat: "機台設備與操作", sentence: "Measure film thickness at the wafer center.", tip: "晶圓中心點" },
+          { id: 37, en: "area", pos: "n.", zh: "區域", cat: "機台設備與操作", sentence: "Lithography area requires yellow safety lighting.", tip: "無塵室廠區" },
+          { id: 38, en: "station", pos: "n.", zh: "站", cat: "機台設備與操作", sentence: "Move wafer to the next inspection station.", tip: "製程工作站" },
+          { id: 39, en: "line", pos: "n.", zh: "直線、產線", cat: "機台設備與操作", sentence: "Production line is running at max capacity.", tip: "晶圓製造產線" },
+
+          // 2. 異常警報與處置
+          { id: 40, en: "abnormal", pos: "a.", zh: "異常的", cat: "異常警報與處置", sentence: "Report any abnormal machine noise immediately.", tip: "製程或機台異常" },
+          { id: 41, en: "alarm", pos: "n.", zh: "警報", cat: "異常警報與處置", sentence: "Clear the alarm and verify sensor readings.", tip: "機台 Alarm 警報" },
+          { id: 42, en: "alert", pos: "n.", zh: "警報", cat: "異常警報與處置", sentence: "An alert message popped up on the control screen.", tip: "系統警告訊息" },
+          { id: 43, en: "warning", pos: "n.", zh: "警告", cat: "異常警報與處置", sentence: "High temperature warning triggered auto shutdown.", tip: "預警訊號" },
+          { id: 44, en: "error", pos: "n.", zh: "錯誤", cat: "異常警報與處置", sentence: "Recipe syntax error stopped execution.", tip: "系統或程式錯誤" },
+          { id: 45, en: "fault", pos: "n.", zh: "錯誤", cat: "異常警報與處置", sentence: "Hardware fault detected in the RF generator.", tip: "硬體故障" },
+          { id: 46, en: "abort", pos: "v.", zh: "中止", cat: "異常警報與處置", sentence: "Abort the process immediately if gas leak occurs.", tip: "強制終止流程" },
+          { id: 47, en: "emergency", pos: "n.", zh: "緊急情況", cat: "異常警報與處置", sentence: "Follow emergency evacuation routes during alarm.", tip: "緊急突發狀況" },
+          { id: 48, en: "emergency stop", pos: "n.", zh: "緊急停止", cat: "異常警報與處置", sentence: "Hit the Emergency Stop (EMO) button in danger.", tip: "EMO 急停鈕" },
+          { id: 49, en: "inhibition", pos: "n.", zh: "禁止禁用", cat: "異常警報與處置", sentence: "Tool inhibition is active due to SPC out-of-spec.", tip: "機台禁開卡 / 禁止下貨" },
+          { id: 50, en: "miss-operation", pos: "n.", zh: "錯誤動作", cat: "異常警報與處置", sentence: "Avoid miss-operation by double checking S.O.P.", tip: "人為誤操作" },
+          { id: 51, en: "freeze", pos: "v.", zh: "凍結", cat: "異常警報與處置", sentence: "Freeze the lot until root cause analysis is finished.", tip: "凍結批貨 / 鎖批" },
+          { id: 52, en: "repair", pos: "v.", zh: "修理", cat: "異常警報與處置", sentence: "Vendor engineer arrived to repair the pump.", tip: "設備維修" },
+          { id: 53, en: "reset", pos: "v.", zh: "重設", cat: "異常警報與處置", sentence: "Reset the system controller after fixing the error.", tip: "重置機台控制器" },
+          { id: 54, en: "recover", pos: "v.", zh: "復機", cat: "異常警報與處置", sentence: "Recover the tool to production status.", tip: "復機 (Tool Recovery)" },
+          { id: 55, en: "rework", pos: "v.", zh: "重做", cat: "異常警報與處置", sentence: "Photoresist stripped for wafer rework.", tip: "重工 (Rework)" },
+          { id: 56, en: "delay", pos: "v.", zh: "延遲", cat: "異常警報與處置", sentence: "Unplanned PM caused a cycle time delay.", tip: "生產延遲" },
+          { id: 57, en: "postpone", pos: "v.", zh: "延期", cat: "異常警報與處置", sentence: "Postpone tool maintenance to next shift.", tip: "延後日程" },
+          { id: 58, en: "broken", pos: "a.", zh: "破掉的", cat: "異常警報與處置", sentence: "Found broken wafer inside chamber slot.", tip: "晶圓破片" },
+          { id: 59, en: "lose", pos: "v.", zh: "遺失", cat: "異常警報與處置", sentence: "Do not lose sensor tracking data.", tip: "數據或物料遺失" },
+          { id: 60, en: "issue", pos: "v./n.", zh: "發行；議題", cat: "異常警報與處置", sentence: "Issue a CAR for quality investigation.", tip: "發起議題或異常" },
+
+          // 3. 品質檢驗與良率
+          { id: 61, en: "quality", pos: "n.", zh: "品質", cat: "品質檢驗與良率", sentence: "Wafer quality assurance is top priority.", tip: "產品品質 QA" },
+          { id: 62, en: "inspect", pos: "v.", zh: "檢查", cat: "品質檢驗與良率", sentence: "Inspect wafer surface under high microscope.", tip: "品質檢查" },
+          { id: 63, en: "inspection", pos: "n.", zh: "檢驗", cat: "品質檢驗與良率", sentence: "Defect inspection station detected micro scratches.", tip: "檢驗站 (AOI)" },
+          { id: 64, en: "measure", pos: "v.", zh: "量測", cat: "品質檢驗與良率", sentence: "Measure critical dimension (CD) after etching.", tip: "膜厚/線寬量測" },
+          { id: 65, en: "defect", pos: "n.", zh: "缺陷", cat: "品質檢驗與良率", sentence: "Particle defects reduce overall chip yield.", tip: "晶圓缺陷" },
+          { id: 66, en: "pass", pos: "v.", zh: "合格", cat: "品質檢驗與良率", sentence: "This lot passed all quality inspection criteria.", tip: "檢驗合格" },
+          { id: 67, en: "scrap", pos: "n.", zh: "報廢", cat: "品質檢驗與良率", sentence: "Broken wafer resulted in immediate scrap.", tip: "報廢 (Scrap wafer)" },
+          { id: 68, en: "scratch", pos: "v.", zh: "刮傷", cat: "品質檢驗與良率", sentence: "Robotic arm misplacement caused a scratch on wafer.", tip: "晶圓表面刮傷" },
+          { id: 69, en: "particle", pos: "n.", zh: "微粒", cat: "品質檢驗與良率", sentence: "Air shower removes particle dust from cleanroom suits.", tip: "無塵微粒落塵" },
+          { id: 70, en: "contamination", pos: "n.", zh: "污染", cat: "品質檢驗與良率", sentence: "Chemical contamination must be strictly controlled.", tip: "化學/微粒污染" },
+          { id: 71, en: "specification", pos: "n.", zh: "規格 (Spec.)", cat: "品質檢驗與良率", sentence: "Parameters must strictly remain within Spec.", tip: "規章/規格 Spec" },
+          { id: 72, en: "standard", pos: "n.", zh: "標準", cat: "品質檢驗與良率", sentence: "Follow standard operating procedures for safety.", tip: "標準規範" },
+          { id: 73, en: "grade", pos: "n.", zh: "等級", cat: "品質檢驗與良率", sentence: "Prime grade silicon wafers are used for production.", tip: "晶圓等級 (Prime/Dummy)" },
+          { id: 74, en: "perfect", pos: "a.", zh: "完美的", cat: "品質檢驗與良率", sentence: "Achieved perfect alignment accuracy.", tip: "無缺陷完美狀態" },
+          { id: 75, en: "positive", pos: "a.", zh: "正向的", cat: "品質檢驗與良率", sentence: "Positive photoresist was applied evenly.", tip: "正光阻 (Positive PR)" },
+          { id: 76, en: "yield", pos: "n.", zh: "良率", cat: "品質檢驗與良率", sentence: "Improving die yield increases factory profitability.", tip: "晶圓良率 Yield" },
+          { id: 77, en: "rate", pos: "n.", zh: "比率", cat: "品質檢驗與良率", sentence: "Monitor defect rate every shift.", tip: "比率/速率" },
+          { id: 78, en: "turn rate", pos: "n.", zh: "週轉率", cat: "品質檢驗與良率", sentence: "High turn rate indicates efficient wafer flow.", tip: "卡匣/WIP週轉率" },
+          { id: 79, en: "audit", pos: "v.", zh: "稽核、查核", cat: "品質檢驗與良率", sentence: "Audit quality control procedures periodically.", tip: "品質稽核" },
+          { id: 80, en: "benchmark", pos: "n.", zh: "標竿學習", cat: "品質檢驗與良率", sentence: "Set best yield performance as benchmark.", tip: "標竿基準" },
+          { id: 81, en: "trend", pos: "n.", zh: "趨勢", cat: "品質檢驗與良率", sentence: "Analyze defect trend chart over time.", tip: "趨勢變化" },
+
+          // 4. 半導體與微影製程
+          { id: 82, en: "semiconductor", pos: "n.", zh: "半導體", cat: "半導體與微影製程", sentence: "Semiconductor industry requires extreme precision.", tip: "半導體產業" },
+          { id: 83, en: "wafer", pos: "n.", zh: "晶圓", cat: "半導體與微影製程", sentence: "Handle 12-inch silicon wafer with care.", tip: "矽晶圓 Wafer" },
+          { id: 84, en: "chip", pos: "n.", zh: "晶片", cat: "半導體與微影製程", sentence: "Single wafer contains thousands of microchips.", tip: "晶片 Chip / Die" },
+          { id: 85, en: "lithography", pos: "n.", zh: "黃光／微影製程", cat: "半導體與微影製程", sentence: "Lithography transfers circuit patterns onto wafers.", tip: "黃光微影 Litho" },
+          { id: 86, en: "etching", pos: "n.", zh: "蝕刻製程", cat: "半導體與微影製程", sentence: "Plasma etching removes unwanted silicon material.", tip: "蝕刻 Etch" },
+          { id: 87, en: "diffusion", pos: "n.", zh: "擴散製程", cat: "半導體與微影製程", sentence: "Diffusion furnace alters silicon conductive properties.", tip: "擴散爐管 Diffusion" },
+          { id: 88, en: "thin film", pos: "n.", zh: "薄膜製程", cat: "半導體與微影製程", sentence: "CVD deposits a thin film oxide layer.", tip: "薄膜沉積 Thin Film" },
+          { id: 89, en: "metal", pos: "n.", zh: "金屬", cat: "半導體與微影製程", sentence: "Copper metal interconnects link electronic circuits.", tip: "金屬導線層" },
+          { id: 90, en: "mask", pos: "n.", zh: "光罩、口罩", cat: "半導體與微影製程", sentence: "Photomask alignment accuracy is within nanometers.", tip: "黃光光罩 / 口罩" },
+          { id: 91, en: "beam", pos: "n.", zh: "光束", cat: "半導體與微影製程", sentence: "Electron beam is used for precision inspection.", tip: "電子束/光束 Beam" },
+          { id: 92, en: "light", pos: "n.", zh: "光", cat: "半導體與微影製程", sentence: "Yellow light environment prevents photoresist damage.", tip: "黃光區 Lighting" },
+          { id: 93, en: "EUV", pos: "n.", zh: "極紫外光 (EUV)", cat: "半導體與微影製程", sentence: "EUV extreme ultraviolet lithography enables advanced node chips.", tip: "極紫外光微影" },
+          { id: 94, en: "focus", pos: "n.", zh: "焦點", cat: "半導體與微影製程", sentence: "Adjust scanner focus depth for clear pattern.", tip: "曝光對焦 Focus" },
+          { id: 95, en: "align", pos: "v.", zh: "對焦", cat: "半導體與微影製程", sentence: "Align mask pattern with previous wafer layer.", tip: "光罩對位 Alignment" },
+          { id: 96, en: "phase", pos: "n.", zh: "階段", cat: "半導體與微影製程", sentence: "Project entered qualification phase.", tip: "工程階段" },
+          { id: 97, en: "stage", pos: "n.", zh: "站別、階段", cat: "半導體與微影製程", sentence: "The lot is currently at CMP stage.", tip: "製程站別 Stage" },
+          { id: 98, en: "process", pos: "n.", zh: "過程、流程", cat: "半導體與微影製程", sentence: "Process engineer optimized etch gas mixture.", tip: "PE 製程流程" },
+          { id: 99, en: "recipe", pos: "n.", zh: "食譜、處方程式", cat: "半導體與微影製程", sentence: "Select correct tool recipe before start.", tip: "機台設定 Recipe" },
+          { id: 100, en: "material", pos: "n.", zh: "原料", cat: "半導體與微影製程", sentence: "Verify raw material purity prior to chemical vapor deposition.", tip: "製程物料" },
+          { id: 101, en: "part", pos: "n.", zh: "零件", cat: "半導體與微影製程", sentence: "Replace worn chamber parts during PM.", tip: "機台零組件" },
+
+          // 5. 潔淨室與環安衛
+          { id: 102, en: "air shower", pos: "n.", zh: "潔淨通道", cat: "潔淨室與環安衛", sentence: "Pass through air shower before entering cleanroom.", tip: "風淋室 Air Shower" },
+          { id: 103, en: "clean chamber", pos: "n.", zh: "潔淨室", cat: "潔淨室與環安衛", sentence: "Clean chamber maintains vacuum environment.", tip: "反應真空腔體" },
+          { id: 104, en: "clean", pos: "v.", zh: "清潔", cat: "潔淨室與環安衛", sentence: "Clean the loadport surface daily.", tip: "清潔維護" },
+          { id: 105, en: "chemical", pos: "n.", zh: "化學、化學品", cat: "潔淨室與環安衛", sentence: "Wear protective apron when handling chemical.", tip: "化學品" },
+          { id: 106, en: "acid", pos: "n.", zh: "酸", cat: "潔淨室與環安衛", sentence: "Hydrofluoric acid (HF) requires extreme caution.", tip: "氫氟酸/酸液" },
+          { id: 107, en: "gas", pos: "n.", zh: "氣體", cat: "潔淨室與環安衛", sentence: "Specialty gas cabinet monitors cylinder leakage.", tip: "特種氣體" },
+          { id: 108, en: "liquid", pos: "n.", zh: "液體", cat: "潔淨室與環安衛", sentence: "Check liquid chemical pressure gauge.", tip: "液體化學品" },
+          { id: 109, en: "dry", pos: "a.", zh: "乾的", cat: "潔淨室與環安衛", sentence: "Dry etch uses gas plasma instead of wet chemicals.", tip: "乾式蝕刻 (Dry etch)" },
+          { id: 110, en: "wet", pos: "a.", zh: "濕的", cat: "潔淨室與環安衛", sentence: "Wet bench station performs chemical cleaning.", tip: "濕式清洗 (Wet bench)" },
+          { id: 111, en: "purge", pos: "v.", zh: "清除", cat: "潔淨室與環安衛", sentence: "Purge N2 gas to remove oxygen inside FOUP.", tip: "氮氣沖洗 Purge" },
+          { id: 112, en: "gloves", pos: "n.", zh: "手套", cat: "潔淨室與環安衛", sentence: "Nitrile gloves prevent skin particle shedding.", tip: "無塵手套" },
+          { id: 113, en: "helmet", pos: "n.", zh: "安全帽", cat: "潔淨室與環安衛", sentence: "Safety helmet is mandatory during construction.", tip: "工安安全帽" },
+          { id: 114, en: "glass", pos: "n.", zh: "玻璃、鏡片", cat: "潔淨室與環安衛", sentence: "Inspect lens glass optics for contamination.", tip: "玻璃或護目鏡" },
+          { id: 115, en: "bottle", pos: "n.", zh: "瓶子", cat: "潔淨室與環安衛", sentence: "Chemical bottle must be labeled properly.", tip: "化學試劑瓶" },
+          { id: 116, en: "floor", pos: "n.", zh: "地板", cat: "潔淨室與環安衛", sentence: "Perforated floor allows laminar airflow.", tip: "高架地板 Floor" },
+          { id: 117, en: "environment", pos: "n.", zh: "環境", cat: "潔淨室與環安衛", sentence: "Maintain constant humidity in cleanroom environment.", tip: "溫濕度環境" },
+          { id: 118, en: "safe", pos: "a.", zh: "安全的", cat: "潔淨室與環安衛", sentence: "Ensure tool status is safe before opening chamber.", tip: "安全工安狀態" },
+          { id: 119, en: "temperature", pos: "n.", zh: "溫度", cat: "潔淨室與環安衛", sentence: "Monitor furnace temperature profile carefully.", tip: "爐管/腔體溫度" },
+          { id: 120, en: "pressure", pos: "n.", zh: "壓力", cat: "潔淨室與環安衛", sentence: "Chamber pressure must reach vacuum level.", tip: "真空壓力" },
+          { id: 121, en: "thickness", pos: "n.", zh: "厚度", cat: "潔淨室與環安衛", sentence: "Film thickness measured by ellipsometer.", tip: "膜厚 Thin Film Thickness" },
+          { id: 122, en: "hole", pos: "n.", zh: "孔、洞", cat: "潔淨室與環安衛", sentence: "Via hole etch connects metal layers.", tip: "接觸孔 Via Hole" },
+          { id: 123, en: "color", pos: "n.", zh: "顏色", cat: "潔淨室與環安衛", sentence: "Wafer color change indicates film thickness variation.", tip: "膜厚顏色差異" },
+          { id: 124, en: "green", pos: "n.", zh: "綠色", cat: "潔淨室與環安衛", sentence: "Green light on signal tower means tool is running.", tip: "三色燈塔綠燈 (NORMAL)" },
+          { id: 125, en: "hot", pos: "a.", zh: "熱的", cat: "潔淨室與環安衛", sentence: "Hot plate bakes photoresist after coating.", tip: "熱烘烤 Hot plate" },
+          { id: 126, en: "heavy", pos: "a.", zh: "重的", cat: "潔淨室與環安衛", sentence: "Use hoist for lifting heavy chamber lid.", tip: "重型零組件" },
+          { id: 127, en: "mechanical", pos: "a.", zh: "機械的", cat: "潔淨室與環安衛", sentence: "Mechanical arm robot swaps wafers into chamber.", tip: "機械手臂" },
+          { id: 128, en: "automotive", pos: "adj.", zh: "汽車的", cat: "潔淨室與環安衛", sentence: "Automotive grade chips require strict reliability.", tip: "車用晶片" },
+          { id: 129, en: "oven", pos: "n.", zh: "烤箱", cat: "潔淨室與環安衛", sentence: "Bake wafers inside vacuum oven.", tip: "烘烤箱" },
+          { id: 130, en: "tape", pos: "n.", zh: "膠帶", cat: "潔淨室與環安衛", sentence: "Wafer dicing tape holds dies in position.", tip: "切割膠帶 Dicing tape" },
+          { id: 131, en: "laboratory", pos: "n.", zh: "實驗室", cat: "潔淨室與環安衛", sentence: "Send failure analysis samples to laboratory.", tip: "故障分析實驗室" },
+          { id: 132, en: "lobby", pos: "n.", zh: "大廳", cat: "潔淨室與環安衛", sentence: "Visitors wait in the main fab office lobby.", tip: "辦公區大廳" },
+          { id: 133, en: "office", pos: "n.", zh: "辦公室", cat: "潔淨室與環安衛", sentence: "Process engineers work in the office area.", tip: "工程師辦公室" },
+
+          // 6. 系統資料與文件
+          { id: 134, en: "computer", pos: "n.", zh: "電腦", cat: "系統資料與文件", sentence: "Log into the MES computer system.", tip: "製造執行系統電腦" },
+          { id: 135, en: "system", pos: "n.", zh: "系統", cat: "系統資料與文件", sentence: "Manufacturing Execution System (MES) tracks lots.", tip: "MES 系統" },
+          { id: 136, en: "keyboard", pos: "n.", zh: "鍵盤", cat: "系統資料與文件", sentence: "Type lot ID using barcode or keyboard.", tip: "系統輸入鍵盤" },
+          { id: 137, en: "screen", pos: "n.", zh: "螢幕", cat: "系統資料與文件", sentence: "Touch screen terminal controls station loadport.", tip: "操作界面螢幕" },
+          { id: 138, en: "window", pos: "n.", zh: "視窗", cat: "系統資料與文件", sentence: "Close system pop-up window.", tip: "軟體彈出視窗" },
+          { id: 139, en: "username", pos: "n.", zh: "使用者名稱", cat: "系統資料與文件", sentence: "Enter username and password to authenticate.", tip: "工號/帳號" },
+          { id: 140, en: "password", pos: "n.", zh: "密碼", cat: "系統資料與文件", sentence: "Change account password every 90 days.", tip: "系統登入密碼" },
+          { id: 141, en: "input", pos: "n.", zh: "輸入", cat: "系統資料與文件", sentence: "Input process recipe code manually.", tip: "資料輸入" },
+          { id: 142, en: "output", pos: "n.", zh: "輸出", cat: "系統資料與文件", sentence: "Verify yield output report.", tip: "產出數據" },
+          { id: 143, en: "data", pos: "n.", zh: "資料", cat: "系統資料與文件", sentence: "Upload SPC data to server automatically.", tip: "量測與生產數據" },
+          { id: 144, en: "select", pos: "v.", zh: "選擇", cat: "系統資料與文件", sentence: "Select target lot from online queue.", tip: "選擇批號" },
+          { id: 145, en: "choose", pos: "v.", zh: "挑選", cat: "系統資料與文件", sentence: "Choose appropriate tool for qualification.", tip: "挑選機台" },
+          { id: 146, en: "view", pos: "v.", zh: "查看", cat: "系統資料與文件", sentence: "View real-time machine status dashboard.", tip: "檢視狀態" },
+          { id: 147, en: "show", pos: "v.", zh: "顯示", cat: "系統資料與文件", sentence: "Display screen shows red alert light.", tip: "畫面顯示" },
+          { id: 148, en: "save", pos: "v.", zh: "儲存", cat: "系統資料與文件", sentence: "Save log sheet report before log out.", tip: "存檔紀錄" },
+          { id: 149, en: "delete", pos: "v.", zh: "刪除", cat: "系統資料與文件", sentence: "Delete dummy lot history file.", tip: "刪除資料" },
+          { id: 150, en: "copy", pos: "n.", zh: "拷貝", cat: "系統資料與文件", sentence: "Make a copy of qualification recipe.", tip: "複製 Recipe" },
+          { id: 151, en: "internet", pos: "n.", zh: "網際網路", cat: "系統資料與文件", sentence: "Fab internal network is isolated from public internet.", tip: "內聯網/網際網路" },
+          { id: 152, en: "document", pos: "n.", zh: "文件", cat: "系統資料與文件", sentence: "Review engineering change document.", tip: "工程文件" },
+          { id: 153, en: "sheet", pos: "n.", zh: "表單", cat: "系統資料與文件", sentence: "Fill out shift hand-over sheet.", tip: "交接表單" },
+          { id: 154, en: "log sheet", pos: "n.", zh: "工作紀錄", cat: "系統資料與文件", sentence: "Sign log sheet after finishing tool PM.", tip: "工作紀錄表" },
+          { id: 155, en: "run-card", pos: "n.", zh: "流程卡", cat: "系統資料與文件", sentence: "Attach run-card to the front of cassette.", tip: "晶圓批次隨身流程卡" },
+          { id: 156, en: "record", pos: "n.", zh: "記錄", cat: "系統資料與文件", sentence: "Keep accurate maintenance record.", tip: "維修紀錄" },
+          { id: 157, en: "note", pos: "n.", zh: "註解", cat: "系統資料與文件", sentence: "Add special handling note on MES.", tip: "特殊交接註解" },
+          { id: 158, en: "remark", pos: "n.", zh: "註記", cat: "系統資料與文件", sentence: "Remark reason for engineering hold.", tip: "Hold 卡原因備註" },
+          { id: 159, en: "comment", pos: "n.", zh: "評論", cat: "系統資料與文件", sentence: "Leave a comment on the shift report.", tip: "系統留言備註" },
+          { id: 160, en: "message", pos: "n.", zh: "訊息", cat: "系統資料與文件", sentence: "Receive pager message for machine warning.", tip: "系統簡訊通知" },
+          { id: 161, en: "information", pos: "n.", zh: "資訊", cat: "系統資料與文件", sentence: "Check lot information in MES system.", tip: "物料批號資訊" },
+          { id: 162, en: "report", pos: "n.", zh: "報告", cat: "系統資料與文件", sentence: "Submit daily yield report to management.", tip: "每日生產報告" },
+          { id: 163, en: "paper", pos: "n.", zh: "紙張", cat: "系統資料與文件", sentence: "Cleanroom paper is dust-free.", tip: "無塵紙" },
+          { id: 164, en: "page", pos: "n.", zh: "頁數", cat: "系統資料與文件", sentence: "Turn to page 5 of the SOP manual.", tip: "文件頁數" },
+          { id: 165, en: "title", pos: "n.", zh: "標題", cat: "系統資料與文件", sentence: "Enter document title in search box.", tip: "文件標題" },
+          { id: 166, en: "list", pos: "n.", zh: "清單", cat: "系統資料與文件", sentence: "Check machine down list for maintenance.", tip: "停機維修清單" },
+          { id: 167, en: "chart", pos: "n.", zh: "圖表", cat: "系統資料與文件", sentence: "Review SPC control chart for variation.", tip: "管制圖表 Chart" },
+          { id: 168, en: "print", pos: "n.", zh: "列印", cat: "系統資料與文件", sentence: "Print barcode label for cassette.", tip: "列印條碼" },
+          { id: 169, en: "attach", pos: "v.", zh: "附上", cat: "系統資料與文件", sentence: "Attach photo evidence to fault ticket.", tip: "附加檔案" },
+          { id: 170, en: "photo", pos: "n.", zh: "相片", cat: "系統資料與文件", sentence: "Take a photo of the defect wafer surface.", tip: "缺陷照片" },
+          { id: 171, en: "AI", pos: "n.", zh: "人工智慧", cat: "系統資料與文件", sentence: "AI automated visual inspection detects nano defects.", tip: "AI 智動化檢驗" },
+          { id: 172, en: "hard-disk", pos: "n.", zh: "硬盤", cat: "系統資料與文件", sentence: "Log data saved to local hard-disk.", tip: "硬碟儲存" },
+          { id: 173, en: "link", pos: "n.", zh: "連結", cat: "系統資料與文件", sentence: "Click link to open web report.", tip: "系統超連結" },
+          { id: 174, en: "preview", pos: "n.", zh: "預覽", cat: "系統資料與文件", sentence: "Preview recipe steps before saving.", tip: "預覽處方" },
+          { id: 175, en: "plus", pos: "prep.", zh: "加上", cat: "系統資料與文件", sentence: "Target output plus extra 5 percent buffer.", tip: "加算數量" },
+
+          // 7. 工廠管理與人員
+          { id: 176, en: "plan", pos: "n.", zh: "計劃", cat: "工廠管理與人員", sentence: "Production plan requires 10k wafer moves this week.", tip: "生產計劃" },
+          { id: 177, en: "target", pos: "n.", zh: "目標", cat: "工廠管理與人員", sentence: "Achieve monthly output target.", tip: "目標產量" },
+          { id: 178, en: "priority", pos: "n.", zh: "優先順序", cat: "工廠管理與人員", sentence: "Super hot run lots have highest priority.", tip: "派工優先權 Priority" },
+          { id: 179, en: "daily", pos: "a.", zh: "每日的", cat: "工廠管理與人員", sentence: "Attend daily morning shift meeting.", tip: "每日晨會" },
+          { id: 180, en: "weekly", pos: "adv.", zh: "每週地", cat: "工廠管理與人員", sentence: "Review yield performance weekly.", tip: "週報表" },
+          { id: 181, en: "monthly", pos: "a.", zh: "每月的", cat: "工廠管理與人員", sentence: "Monthly tool audit was passed successfully.", tip: "月度稽核" },
+          { id: 182, en: "annually", pos: "adv.", zh: "每年的", cat: "工廠管理與人員", sentence: "Safety certification must be renewed annually.", tip: "年度認證" },
+          { id: 183, en: "track", pos: "v.", zh: "追蹤", cat: "工廠管理與人員", sentence: "Track lot location via RFID system.", tip: "追蹤貨批位置" },
+          { id: 184, en: "status", pos: "n.", zh: "狀況", cat: "工廠管理與人員", sentence: "Tool status changed from RUN to DOWN.", tip: "機台/批號狀態 Status" },
+          { id: 185, en: "complete", pos: "v.", zh: "完成", cat: "工廠管理與人員", sentence: "Complete all checklist items before release.", tip: "完成作業" },
+          { id: 186, en: "on time", pos: "ph.", zh: "準時", cat: "工廠管理與人員", sentence: "Deliver customer shipment on time.", tip: "準時交貨" },
+          { id: 187, en: "time", pos: "n.", zh: "時間", cat: "工廠管理與人員", sentence: "Record start and finish time for recipe run.", tip: "作業時間" },
+          { id: 188, en: "date", pos: "n.", zh: "日期", cat: "工廠管理與人員", sentence: "Check expiration date of chemical bottle.", tip: "有效日期" },
+          { id: 189, en: "cycle", pos: "n.", zh: "週期", cat: "工廠管理與人員", sentence: "Thermal purge cycle takes 30 minutes.", tip: "運作週期" },
+          { id: 190, en: "cycle time", pos: "n.", zh: "生產週期", cat: "工廠管理與人員", sentence: "Reducing cycle time improves fab efficiency.", tip: "CT 生產週轉時間" },
+          { id: 191, en: "step", pos: "n.", zh: "步驟", cat: "工廠管理與人員", sentence: "Follow step by step operating guide.", tip: "SOP 步驟" },
+          { id: 192, en: "event", pos: "n.", zh: "事件", cat: "工廠管理與人員", sentence: "Log machine alarm event into computer.", tip: "系統事件 Log" },
+          { id: 193, en: "execute", pos: "v.", zh: "執行", cat: "工廠管理與人員", sentence: "Execute calibration program.", tip: "執行程式/命令" },
+          { id: 194, en: "success", pos: "n.", zh: "成功", cat: "工廠管理與人員", sentence: "Process optimization was a big success.", tip: "工程優化成功" },
+          { id: 195, en: "engineer", pos: "n.", zh: "工程師", cat: "工廠管理與人員", sentence: "Process Engineer (PE) is tuning recipe parameters.", tip: "PE/EE/YE 工程師" },
+          { id: 196, en: "technician", pos: "n.", zh: "技術員", cat: "工廠管理與人員", sentence: "Fab technician loaded cassettes into stocker.", tip: "無塵室技術員 DL" },
+          { id: 197, en: "leader", pos: "n.", zh: "組長", cat: "工廠管理與人員", sentence: "Report anomaly to shift team leader.", tip: "班別組長 / Leader" },
+          { id: 198, en: "supervisor", pos: "n.", zh: "監督者", cat: "工廠管理與人員", sentence: "Supervisor approved overtime request.", tip: "主管/課長" },
+          { id: 199, en: "customer", pos: "n.", zh: "客戶", cat: "工廠管理與人員", sentence: "Customer requested expedited shipment.", tip: "委託客戶 (IC Design)" },
+          { id: 200, en: "vendor", pos: "n.", zh: "廠商", cat: "工廠管理與人員", sentence: "Vendor field engineer arrived for tool repair.", tip: "設備/材料原廠" },
+          { id: 201, en: "company", pos: "n.", zh: "公司", cat: "工廠管理與人員", sentence: "Company compliance rules must be followed.", tip: "半導體企業" },
+          { id: 202, en: "service", pos: "n.", zh: "服務", cat: "工廠管理與人員", sentence: "Facilities team provides gas supply service.", tip: "廠務服務" },
+          { id: 203, en: "support", pos: "n.", zh: "支援", cat: "工廠管理與人員", sentence: "Engineering support is available 24/7.", tip: "技術支援" },
+          { id: 204, en: "help", pos: "v.", zh: "幫助", cat: "工廠管理與人員", sentence: "Call senior engineer for help if confused.", tip: "尋求協助" },
+          { id: 205, en: "inform", pos: "v.", zh: "通知", cat: "工廠管理與人員", sentence: "Inform shift leader about machine down.", tip: "通報訊息" },
+          { id: 206, en: "confirm", pos: "v.", zh: "確認", cat: "工廠管理與人員", sentence: "Confirm lot ID before placing on loader.", tip: "雙重確認 Confirm" },
+          { id: 207, en: "remind", pos: "v.", zh: "提醒", cat: "工廠管理與人員", sentence: "Remind operator to change gloves periodically.", tip: "安全提醒" },
+          { id: 208, en: "concern", pos: "v.", zh: "擔憂", cat: "工廠管理與人員", sentence: "Address quality concern immediately.", tip: "關切議題" },
+          { id: 209, en: "interview", pos: "n.", zh: "面試", cat: "工廠管理與人員", sentence: "Prepare fab terminology for technical interview.", tip: "晶圓廠求職面試" },
+          { id: 210, en: "job", pos: "n.", zh: "工作", cat: "工廠管理與人員", sentence: "Assign job priority in dispatch system.", tip: "派工工作" },
+          { id: 211, en: "telephone", pos: "n.", zh: "電話", cat: "工廠管理與人員", sentence: "Use emergency telephone line in fab.", tip: "無塵室專用電話" },
+          { id: 212, en: "group", pos: "n.", zh: "群組", cat: "工廠管理與人員", sentence: "Shift A group takes over cleanroom duty.", tip: "班別群組" },
+          { id: 213, en: "rule", pos: "n.", zh: "規則", cat: "工廠管理與人員", sentence: "Comply with cleanroom protocol rules.", tip: "廠規/無塵室規定" },
+          { id: 214, en: "S.O.P", pos: "n.", zh: "標準作業程序", cat: "工廠管理與人員", sentence: "Strictly adhere to S.O.P guidelines.", tip: "標準 SOP 規範" },
+          { id: 215, en: "instruction", pos: "n.", zh: "指令", cat: "工廠管理與人員", sentence: "Follow operating instruction on screen.", tip: "操作指示" },
+          { id: 216, en: "training", pos: "n.", zh: "訓練", cat: "工廠管理與人員", sentence: "New technicians undergo 2-week fab training.", tip: "新人培訓" },
+          { id: 217, en: "practice", pos: "v.", zh: "練習", cat: "工廠管理與人員", sentence: "Practice emergency shutdown procedures.", tip: "實操演練" },
+          { id: 218, en: "learn", pos: "v.", zh: "學習", cat: "工廠管理與人員", sentence: "Learn key semiconductor terminology.", tip: "專業學習" },
+          { id: 219, en: "certify", pos: "v.", zh: "證實、認證", cat: "工廠管理與人員", sentence: "Certify technician for solo machine operation.", tip: "操作認證合格" },
+          { id: 220, en: "re-certify", pos: "v.", zh: "重新認證", cat: "工廠管理與人員", sentence: "Re-certify tool qualification every 6 months.", tip: "定期重新認證" },
+          { id: 221, en: "protect", pos: "v.", zh: "保護", cat: "工廠管理與人員", sentence: "Protect wafers from electrostatic discharge.", tip: "晶圓防護" },
+          { id: 222, en: "confidential", pos: "a.", zh: "機密的", cat: "工廠管理與人員", sentence: "Recipe details are strictly confidential.", tip: "商業/技術機密" },
+          { id: 223, en: "personal", pos: "a.", zh: "個人的", cat: "工廠管理與人員", sentence: "Store personal belongings in locker room.", tip: "個人物品" },
+          { id: 224, en: "notice", pos: "n.", zh: "通知", cat: "工廠管理與人員", sentence: "Post maintenance notice on station door.", tip: "公告通知" },
+          { id: 225, en: "tag", pos: "n./v.", zh: "標籤；標註", cat: "工廠管理與人員", sentence: "Tag lock out hardware during PM.", tip: "Hang tag 警示牌" },
+          { id: 226, en: "label", pos: "n.", zh: "標籤", cat: "工廠管理與人員", sentence: "Verify chemical label information.", tip: "物料識別標籤" },
+          { id: 227, en: "mark", pos: "n.", zh: "記號", cat: "工廠管理與人員", sentence: "Wafer notch mark indicates orientation.", tip: "定位 Notch 記號" },
+          { id: 228, en: "card", pos: "n.", zh: "卡片", cat: "工廠管理與人員", sentence: "Swipe ID card to access cleanroom door.", tip: "門禁卡/識別證" },
+          { id: 229, en: "shift", pos: "n.", zh: "班次", cat: "工廠管理與人員", sentence: "Day shift hand over pending tasks to night shift.", tip: "日夜班次 (Day/Night Shift)" },
+          { id: 230, en: "absence", pos: "n.", zh: "缺席", cat: "工廠管理與人員", sentence: "Report unscheduled absence in advance.", tip: "出勤缺席" },
+          { id: 231, en: "take leave", pos: "ph.", zh: "請假", cat: "工廠管理與人員", sentence: "Apply system request to take leave.", tip: "申請請假" },
+          { id: 232, en: "over time", pos: "ph.", zh: "加班", cat: "工廠管理與人員", sentence: "Worked over time during quarterly PM maintenance.", tip: "OT 加班" },
+          { id: 233, en: "prepare", pos: "v.", zh: "準備", cat: "工廠管理與人員", sentence: "Prepare test dummy wafers for qualification.", tip: "準備工作" },
+          { id: 234, en: "waiting", pos: "n.", zh: "等待", cat: "工廠管理與人員", sentence: "Lot is waiting for process dispatch.", tip: "待派工 Waiting" },
+          { id: 235, en: "follow", pos: "v.", zh: "照做、跟隨", cat: "工廠管理與人員", sentence: "Follow SOP steps strictly without skipping.", tip: "遵循規範" },
+          { id: 236, en: "maintain", pos: "v.", zh: "維護", cat: "工廠管理與人員", sentence: "Maintain vacuum level inside chamber.", tip: "機台維護" },
+          { id: 237, en: "manufacture", pos: "v.", zh: "製造", cat: "工廠管理與人員", sentence: "Manufacture high-end microprocessors.", tip: "半導體製造" },
+          { id: 238, en: "point", pos: "n.", zh: "點", cat: "工廠管理與人員", sentence: "Measure film thickness at 9 test points.", tip: "測試點" },
+          { id: 239, en: "product", pos: "n.", zh: "產品", cat: "工廠管理與人員", sentence: "New automotive product entered mass production.", tip: "晶圓產品" },
+          { id: 240, en: "skip", pos: "v.", zh: "跳過", cat: "工廠管理與人員", sentence: "Do not skip inspection step without EE approval.", tip: "跳過步驟" },
+
+          // 8. 數量參數與狀態
+          { id: 241, en: "basic", pos: "a.", zh: "基礎的", cat: "數量參數與狀態", sentence: "Master basic Fab terminology for smooth shift handover.", tip: "基礎專業詞彙" },
+          { id: 242, en: "quantity", pos: "n.", zh: "數量", cat: "數量參數與狀態", sentence: "Verify total wafer quantity inside FOUP.", tip: "晶圓數量" },
+          { id: 243, en: "count", pos: "v.", zh: "計算", cat: "數量參數與狀態", sentence: "Count good dies on processed wafer.", tip: "計算顆數" },
+          { id: 244, en: "number", pos: "n.", zh: "號碼", cat: "數量參數與狀態", sentence: "Check lot number on barcode label.", tip: "批號數字" },
+          { id: 245, en: "average", pos: "n.", zh: "平均", cat: "數量參數與狀態", sentence: "Calculate average film thickness.", tip: "平均數值" },
+          { id: 246, en: "speed", pos: "n.", zh: "速度", cat: "數量參數與狀態", sentence: "Spin coater speed controls photoresist thickness.", tip: "旋轉速度" },
+          { id: 247, en: "more", pos: "a.", zh: "更多的", cat: "數量參數與狀態", sentence: "Request more dummy wafers for testing.", tip: "增加數量" },
+          { id: 248, en: "add", pos: "v.", zh: "增加", cat: "數量參數與狀態", sentence: "Add chemical solution to reservoir tank.", tip: "添加劑量" },
+          { id: 249, en: "decline", pos: "v.", zh: "減少", cat: "數量參數與狀態", sentence: "Yield started to decline after target threshold.", tip: "下降趨勢" },
+          { id: 250, en: "enhance", pos: "v.", zh: "增進", cat: "數量參數與狀態", sentence: "Enhance plasma density during etch.", tip: "提升強度" },
+          { id: 251, en: "improve", pos: "v.", zh: "改善", cat: "數量參數與狀態", sentence: "Improve tool uptime by reducing breakdown.", tip: "改善良率/稼動" },
+          { id: 252, en: "ability", pos: "n.", zh: "能力", cat: "數量參數與狀態", sentence: "Process capability Cpk index.", tip: "製程能力 Cpk" },
+          { id: 253, en: "impact", pos: "n.", zh: "影響", cat: "數量參數與狀態", sentence: "Assess engineering impact on wafer yield.", tip: "工程影響" },
+          { id: 254, en: "power", pos: "n.", zh: "力量、功率", cat: "數量參數與狀態", sentence: "Adjust RF power supply setting.", tip: "射頻功率 RF Power" },
+          { id: 255, en: "full", pos: "a.", zh: "滿的", cat: "數量參數與狀態", sentence: "Stocker buffer is full of cassettes.", tip: "滿載狀態" },
+          { id: 256, en: "zero", pos: "n.", zh: "零", cat: "數量參數與狀態", sentence: "Target zero defect strategy.", tip: "零缺陷管理" },
+          { id: 257, en: "source", pos: "n.", zh: "來源", cat: "數量參數與狀態", sentence: "Identify particle contamination source.", tip: "污染源/光源" },
+          { id: 258, en: "price", pos: "n.", zh: "價格", cat: "數量參數與狀態", sentence: "Silicon raw wafer market price.", tip: "原料單價" },
+          { id: 259, en: "bank", pos: "n.", zh: "銀行；暫存", cat: "數量參數與狀態", sentence: "Wafer bank holds unfinished inventory.", tip: "晶圓暫存庫 Wafer Bank" },
+          { id: 260, en: "available", pos: "a.", zh: "可使用的", cat: "數量參數與狀態", sentence: "Tool is available for immediate production.", tip: "可利用/空閒" },
+          { id: 261, en: "on-line", pos: "a.", zh: "在線的", cat: "數量參數與狀態", sentence: "Tool switched to on-line mode in MES.", tip: "連線狀態" },
+          { id: 262, en: "off-line", pos: "a.", zh: "離線的", cat: "數量參數與狀態", sentence: "Run off-line measurement on bench.", tip: "離線量測" },
+          { id: 263, en: "standby", pos: "n.", zh: "等待", cat: "數量參數與狀態", sentence: "Tool is in standby mode waiting for lot.", tip: "待機狀態 Standby" },
+          { id: 264, en: "active", pos: "a.", zh: "主動的", cat: "數量參數與狀態", sentence: "Active alarm requires operator intervention.", tip: "運作中/活動中" },
+          { id: 265, en: "normal", pos: "a.", zh: "正常的", cat: "數量參數與狀態", sentence: "Sensor readings returned to normal range.", tip: "正常數值" },
+          { id: 266, en: "actual", pos: "a.", zh: "真實的", cat: "數量參數與狀態", sentence: "Compare actual thickness with recipe setting.", tip: "實測值" },
+          { id: 267, en: "same", pos: "a.", zh: "相同的", cat: "數量參數與狀態", sentence: "Use same recipe parameters for re-run.", tip: "同一參數" },
+          { id: 268, en: "new", pos: "a.", zh: "新的", cat: "數量參數與狀態", sentence: "New product tape-out verification.", tip: "新產品/新批次" },
+          { id: 269, en: "backup", pos: "n.", zh: "支援", cat: "數量參數與狀態", sentence: "Create system configuration backup daily.", tip: "備份/支援" },
+          { id: 270, en: "lock", pos: "v.", zh: "鎖住", cat: "數量參數與狀態", sentence: "Lock tool safety door during operation.", tip: "鎖定" },
+          { id: 271, en: "release", pos: "v.", zh: "釋放", cat: "數量參數與狀態", sentence: "Release held lot back to dispatch queue.", tip: "解卡/開批 (Release lot)" },
+          { id: 272, en: "cancel", pos: "v.", zh: "取消", cat: "數量參數與狀態", sentence: "Cancel incorrect job command.", tip: "取消指令" },
+          { id: 273, en: "clear", pos: "v.", zh: "清除", cat: "數量參數與狀態", sentence: "Clear alarm history after engineering check.", tip: "清除警報紀錄" },
+          { id: 274, en: "keep", pos: "v.", zh: "保持", cat: "數量參數與狀態", sentence: "Keep cleanroom environment strictly controlled.", tip: "維持狀態" },
+          { id: 275, en: "use", pos: "v.", zh: "使用", cat: "數量參數與狀態", sentence: "Use ESD wrist strap before touching boards.", tip: "使用工具" },
+          { id: 276, en: "super", pos: "a.", zh: "超級的", cat: "數量參數與狀態", sentence: "Super priority assigned to customer sample.", tip: "特級優先" },
+          { id: 277, en: "super hot run", pos: "n.", zh: "超級急件", cat: "數量參數與狀態", sentence: "Super hot run lot must skip queue and run first.", tip: "SHR 超級急件" },
+          { id: 278, en: "parameter", pos: "n.", zh: "參數", cat: "數量參數與狀態", sentence: "Fine tune RF power parameter.", tip: "機台設定參數" },
+          { id: 279, en: "adjust", pos: "v.", zh: "調整", cat: "數量參數與狀態", sentence: "Adjust gas flow rate for uniform deposition.", tip: "調整數值" },
+          { id: 280, en: "tune", pos: "v.", zh: "調整", cat: "數量參數與狀態", sentence: "Tune optical mirror alignment.", tip: "微調機台" },
+          { id: 281, en: "change", pos: "v.", zh: "更換", cat: "數量參數與狀態", sentence: "Change consumable seal ring during PM.", tip: "更換零件" },
+          { id: 282, en: "merge", pos: "v.", zh: "合併", cat: "數量參數與狀態", sentence: "Merge split lots back into one full lot.", tip: "合批 (Merge lot)" },
+          { id: 283, en: "split", pos: "n.", zh: "分帳、分批", cat: "數量參數與狀態", sentence: "Split lot into 5 wafers for test experiment.", tip: "分批 (Split lot)" },
+          { id: 284, en: "sorter", pos: "n.", zh: "排序機、分類機", cat: "數量參數與狀態", sentence: "Wafer sorter organizes wafers into target slots.", tip: "晶圓理牌/分類機" },
+          { id: 285, en: "collect", pos: "v.", zh: "蒐集", cat: "數量參數與狀態", sentence: "Collect process sensor log data.", tip: "收集數據" },
+          { id: 286, en: "find", pos: "v.", zh: "發現", cat: "數量參數與狀態", sentence: "Find root cause of particle breakdown.", tip: "尋找原因" },
+          { id: 287, en: "remove", pos: "v.", zh: "移開", cat: "數量參數與狀態", sentence: "Remove degraded seal ring before cleaning.", tip: "移開/移除" },
+          { id: 288, en: "level", pos: "n.", zh: "程度、準位", cat: "數量參數與狀態", sentence: "Check chemical tank fluid level.", tip: "液位/水準" }
+        ]);
+
+        // Categories list
+        const categories = computed(() => {
+          const set = new Set();
+          wordList.value.forEach(w => set.add(w.cat));
+          return Array.from(set);
+        });
+
+        // Filtered Words Base
+        const filteredWords = computed(() => {
+          return wordList.value.filter(w => {
+            const matchesCategory = selectedCategory.value === 'ALL' || w.cat === selectedCategory.value;
+            const matchesStarred = !showStarredOnly.value || starredIds.value.includes(w.id);
+            const q = searchQuery.value.trim().toLowerCase();
+            const matchesQuery = !q || 
+              w.en.toLowerCase().includes(q) || 
+              w.zh.includes(q) || 
+              (w.tip && w.tip.toLowerCase().includes(q));
+            return matchesCategory && matchesStarred && matchesQuery;
+          });
+        });
+
+        // Grouped for Version B
+        const wordsGroupedByCategory = computed(() => {
+          const map = {};
+          wordList.value.forEach(w => {
+            if (!map[w.cat]) map[w.cat] = [];
+            map[w.cat].push(w);
+          });
+          return map;
+        });
+
+        // ==========================================
+        // Star / Bookmark logic
+        // ==========================================
+        const toggleStar = (id) => {
+          const idx = starredIds.value.indexOf(id);
+          if (idx >= 0) starredIds.value.splice(idx, 1);
+          else starredIds.value.push(id);
+          localStorage.setItem('fab_starred_ids', JSON.stringify(starredIds.value));
+        };
+        const isStarred = (id) => starredIds.value.includes(id);
+        const toggleStarredOnly = () => {
+          showStarredOnly.value = !showStarredOnly.value;
+        };
+
+        // ==========================================
+        // Speech Synthesis Helper
+        // ==========================================
+        const speak = (text) => {
+          if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utter = new SpeechSynthesisUtterance(text);
+            utter.lang = 'en-US';
+            utter.rate = 0.9;
+            window.speechSynthesis.speak(utter);
+          }
+        };
+
+        // ==========================================
+        // Version A Flashcard / Reflex State
+        // ==========================================
+        const currentReflexIndex = ref(0);
+        const isCardFlipped = ref(false);
+        const isAutoPlaying = ref(false);
+        const autoPlaySpeed = ref(2500);
+        let autoPlayTimer = null;
+
+        const currentCard = computed(() => {
+          if (filteredWords.value.length === 0) return {};
+          if (currentReflexIndex.value >= filteredWords.value.length) {
+            currentReflexIndex.value = 0;
+          }
+          return filteredWords.value[currentReflexIndex.value] || {};
+        });
+
+        const toggleCardFlip = () => {
+          isCardFlipped.value = !isCardFlipped.value;
+        };
+        const nextReflexCard = () => {
+          isCardFlipped.value = false;
+          if (filteredWords.value.length === 0) return;
+          currentReflexIndex.value = (currentReflexIndex.value + 1) % filteredWords.value.length;
+        };
+        const prevReflexCard = () => {
+          isCardFlipped.value = false;
+          if (filteredWords.value.length === 0) return;
+          currentReflexIndex.value = (currentReflexIndex.value - 1 + filteredWords.value.length) % filteredWords.value.length;
+        };
+
+        const toggleAutoPlay = () => {
+          isAutoPlaying.value = !isAutoPlaying.value;
+          if (isAutoPlaying.value) {
+            autoPlayTimer = setInterval(() => {
+              if (isCardFlipped.value) {
+                nextReflexCard();
+              } else {
+                isCardFlipped.value = true;
+              }
+            }, autoPlaySpeed.value);
+          } else {
+            clearInterval(autoPlayTimer);
+          }
+        };
+
+        watch(autoPlaySpeed, () => {
+          if (isAutoPlaying.value) {
+            clearInterval(autoPlayTimer);
+            autoPlayTimer = setInterval(() => {
+              if (isCardFlipped.value) nextReflexCard();
+              else isCardFlipped.value = true;
+            }, autoPlaySpeed.value);
+          }
+        });
+
+        // ==========================================
+        // Version A2: Rapid Countdown Test
+        // ==========================================
+        const rapidQuizStarted = ref(false);
+        const rapidQuizFinished = ref(false);
+        const rapidQuestions = ref([]);
+        const rapidCurrentIndex = ref(0);
+        const rapidScore = ref(0);
+        const rapidCount = ref(15);
+        const rapidTimeLimit = ref(1500); // ms
+        const rapidTimerPercent = ref(100);
+        let rapidInterval = null;
+
+        const currentRapidQ = computed(() => rapidQuestions.value[rapidCurrentIndex.value] || {});
+
+        const startRapidQuiz = () => {
+          const pool = [...wordList.value].sort(() => 0.5 - Math.random());
+          const totalQ = Math.min(rapidCount.value, pool.length);
+          const selected = pool.slice(0, totalQ);
+
+          rapidQuestions.value = selected.map(q => {
+            const wrongOpts = wordList.value.filter(w => w.id !== q.id).sort(() => 0.5 - Math.random()).slice(0, 3);
+            const options = [...wrongOpts, q].sort(() => 0.5 - Math.random());
+            return { ...q, options };
+          });
+
+          rapidCurrentIndex.value = 0;
+          rapidScore.value = 0;
+          rapidQuizStarted.value = true;
+          rapidQuizFinished.value = false;
+          startRapidTimer();
+        };
+
+        const startRapidTimer = () => {
+          clearInterval(rapidInterval);
+          rapidTimerPercent.value = 100;
+          const startTime = Date.now();
+
+          rapidInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const remaining = rapidTimeLimit.value - elapsed;
+            if (remaining <= 0) {
+              clearInterval(rapidInterval);
+              // Time out -> Wrong answer -> Next question
+              answerRapidQuestion(null);
+            } else {
+              rapidTimerPercent.value = (remaining / rapidTimeLimit.value) * 100;
+            }
+          }, 30);
+        };
+
+        const answerRapidQuestion = (opt) => {
+          clearInterval(rapidInterval);
+          if (opt && opt.id === currentRapidQ.value.id) {
+            rapidScore.value++;
+          }
+          if (rapidCurrentIndex.value + 1 < rapidQuestions.value.length) {
+            rapidCurrentIndex.value++;
+            startRapidTimer();
+          } else {
+            rapidQuizFinished.value = true;
+          }
+        };
+
+        // ==========================================
+        // Version B Category Helpers
+        // ==========================================
+        const getCategoryIcon = (cat) => {
+          const icons = {
+            "機台設備與操作": "fa-microchip",
+            "異常警報與處置": "fa-triangle-exclamation",
+            "品質檢驗與良率": "fa-chart-line",
+            "半導體與微影製程": "fa-atom",
+            "潔淨室與環安衛": "fa-mask-ventilator",
+            "系統資料與文件": "fa-database",
+            "工廠管理與人員": "fa-users-gear",
+            "數量參數與狀態": "fa-sliders"
+          };
+          return icons[cat] || "fa-bookmark";
+        };
+
+        const getCategoryFabScene = (cat) => {
+          const scenes = {
+            "機台設備與操作": "機台上料、下料、載具傳送與按鈕控制",
+            "異常警報與處置": "機台發出 Alarm、Hold 卡與重工處置",
+            "品質檢驗與良率": "無塵室 Inspection 站與抽檢良率管制",
+            "半導體與微影製程": "黃光 (Litho)、蝕刻 (Etch) 與薄膜四大製程",
+            "潔淨室與環安衛": "無塵服 Air Shower 通道與環安防護規範",
+            "系統資料與文件": "MES 系統開卡、簽 Log Sheet 與讀取 Run-Card",
+            "工廠管理與人員": "交接班 Shift、晨會 Plan 與 SOP 認證查核",
+            "數量參數與狀態": "微調 Recipe 參數與急件 (Super Hot Run) 派工"
+          };
+          return scenes[cat] || "廠內實務專業用語";
+        };
+
+        // ==========================================
+        // Version C1: Mask Practice State
+        // ==========================================
+        const maskType = ref('zh'); // 'zh' or 'en'
+        const revealAllMasks = ref(false);
+        const revealedCardIds = ref([]);
+
+        const toggleCardReveal = (id) => {
+          const idx = revealedCardIds.value.indexOf(id);
+          if (idx >= 0) revealedCardIds.value.splice(idx, 1);
+          else revealedCardIds.value.push(id);
+        };
+
+        // ==========================================
+        // Version C2: Exam State
+        // ==========================================
+        const examCount = ref(10);
+        const examStarted = ref(false);
+        const examFinished = ref(false);
+        const examQuestions = ref([]);
+        const examIndex = ref(0);
+        const examScore = ref(0);
+        const examSelectedAnswer = ref(null);
+
+        const currentExamQ = computed(() => examQuestions.value[examIndex.value] || {});
+
+        const startExam = () => {
+          const pool = [...wordList.value].sort(() => 0.5 - Math.random());
+          const selected = pool.slice(0, examCount.value);
+
+          examQuestions.value = selected.map(q => {
+            const wrongOpts = wordList.value.filter(w => w.id !== q.id).sort(() => 0.5 - Math.random()).slice(0, 3);
+            const options = [...wrongOpts, q].sort(() => 0.5 - Math.random());
+            return { ...q, options };
+          });
+
+          examIndex.value = 0;
+          examScore.value = 0;
+          examSelectedAnswer.value = null;
+          examStarted.value = true;
+          examFinished.value = false;
+        };
+
+        const selectExamAnswer = (opt) => {
+          if (examSelectedAnswer.value !== null) return;
+          examSelectedAnswer.value = opt;
+          if (opt.id === currentExamQ.value.id) {
+            examScore.value++;
+          }
+        };
+
+        const getExamOptionStyle = (opt) => {
+          if (examSelectedAnswer.value === null) {
+            return 'bg-slate-800/80 hover:bg-slate-700 text-slate-200 border-slate-700';
+          }
+          if (opt.id === currentExamQ.value.id) {
+            return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/50 font-bold';
+          }
+          if (examSelectedAnswer.value.id === opt.id) {
+            return 'bg-red-500/20 text-red-300 border-red-500/50 font-bold';
+          }
+          return 'bg-slate-800/40 text-slate-500 border-slate-800 opacity-50';
+        };
+
+        const nextExamQuestion = () => {
+          if (examIndex.value + 1 < examQuestions.value.length) {
+            examIndex.value++;
+            examSelectedAnswer.value = null;
+          } else {
+            examFinished.value = true;
+          }
+        };
+
+        // ==========================================
+        // Version C3: Spelling Test State
+        // ==========================================
+        const spellingIndex = ref(0);
+        const spellingScore = ref(0);
+        const spellingInput = ref('');
+        const showSpellingHint = ref(false);
+        const spellingFeedback = ref(null);
+
+        const currentSpellingWord = computed(() => {
+          if (filteredWords.value.length === 0) return wordList.value[0];
+          return filteredWords.value[spellingIndex.value % filteredWords.value.length];
+        });
+
+        const checkSpelling = () => {
+          const userAns = spellingInput.value.trim().toLowerCase();
+          const target = currentSpellingWord.value.en.trim().toLowerCase();
+
+          if (userAns === target) {
+            spellingScore.value++;
+            spellingFeedback.value = { isCorrect: true, msg: '🎉 拼寫完全正確！' };
+            setTimeout(() => {
+              nextSpelling();
+            }, 1200);
+          } else {
+            spellingFeedback.value = { isCorrect: false, msg: `❌ 拼寫錯誤，正確拼法為: ${currentSpellingWord.value.en}` };
+          }
+        };
+
+        const nextSpelling = () => {
+          spellingInput.value = '';
+          spellingFeedback.value = null;
+          showSpellingHint.value = false;
+          spellingIndex.value++;
+        };
+
+        const prevSpelling = () => {
+          spellingInput.value = '';
+          spellingFeedback.value = null;
+          showSpellingHint.value = false;
+          if (spellingIndex.value > 0) spellingIndex.value--;
+        };
+
+        // Keyboard navigation support for Version A
+        onMounted(() => {
+          window.addEventListener('keydown', (e) => {
+            if (activeTab.value === 'A' && speedSubMode.value === 'reflexCard') {
+              if (e.key === 'ArrowRight') nextReflexCard();
+              if (e.key === 'ArrowLeft') prevReflexCard();
+              if (e.key === ' ') {
+                e.preventDefault();
+                toggleCardFlip();
+              }
+            }
+          });
+        });
+
+        return {
+          activeTab,
+          speedSubMode,
+          testSubMode,
+          searchQuery,
+          selectedCategory,
+          categories,
+          wordList,
+          filteredWords,
+          wordsGroupedByCategory,
+          showStarredOnly,
+          starredIds,
+          toggleStar,
+          isStarred,
+          toggleStarredOnly,
+          speak,
+
+          // Version A Reflex
+          currentReflexIndex,
+          currentCard,
+          isCardFlipped,
+          toggleCardFlip,
+          nextReflexCard,
+          prevReflexCard,
+          isAutoPlaying,
+          autoPlaySpeed,
+          toggleAutoPlay,
+
+          // Version A Rapid Test
+          rapidQuizStarted,
+          rapidQuizFinished,
+          rapidQuestions,
+          rapidCurrentIndex,
+          rapidScore,
+          rapidCount,
+          rapidTimeLimit,
+          rapidTimerPercent,
+          currentRapidQ,
+          startRapidQuiz,
+          answerRapidQuestion,
+
+          // Version B Helpers
+          getCategoryIcon,
+          getCategoryFabScene,
+
+          // Version C1 Mask
+          maskType,
+          revealAllMasks,
+          revealedCardIds,
+          toggleCardReveal,
+
+          // Version C2 Exam
+          examCount,
+          examStarted,
+          examFinished,
+          examQuestions,
+          examIndex,
+          examScore,
+          examSelectedAnswer,
+          currentExamQ,
+          startExam,
+          selectExamAnswer,
+          getExamOptionStyle,
+          nextExamQuestion,
+
+          // Version C3 Spelling
+          spellingIndex,
+          spellingScore,
+          spellingInput,
+          showSpellingHint,
+          spellingFeedback,
+          currentSpellingWord,
+          checkSpelling,
+          nextSpelling,
+          prevSpelling
+        };
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
